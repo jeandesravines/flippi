@@ -1,0 +1,5 @@
+.idea
+_resources
+coverage
+node_modules
+npm-debug.log
