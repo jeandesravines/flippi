@@ -1,5 +1,5 @@
 {
-	"name": "jdes-flippi",
+	"name": "@jdes/flippi",
 	"private": true,
 	"version": "1.0.0",
 	"description": "Flippi. The skateboard Bluetooth LE controller.",
@@ -26,8 +26,8 @@
 	],
 	"dependencies": {
 		"bleno": "^0.4.0",
-		"jdes-gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
-		"jdes-mutex": "^1.0.0"
+		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
+		"@jdes/mutex": "^1.0.0"
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
