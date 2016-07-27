@@ -1,9 +1,15 @@
+/**
+ * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ */
+
 'use strict';
 
 /**
- * Copyright 2016 Jean
+ * @class FlipPi
  */
+const FlipPi = require('./lib/service/flippi');
 
-const FlipPi = require('./components/flippi');
+////////////////////////////////////////
+////////////////////////////////////////
 
 new FlipPi();
