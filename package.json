@@ -6,9 +6,9 @@
 	"author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
 	"scripts": {
 		"start": "sudo node --harmony index.js",
-		"test": "sudo ./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha"
+		"test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha"
 	},
-	"main": "lib/Gpio.js",
+	"main": "index.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jeandesravines/flippi.git"
@@ -27,7 +27,7 @@
 	"dependencies": {
 		"bleno": "^0.4.0",
 		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
-		"@jdes/mutex": "^1.0.0"
+		"@jdes/mutex": "^1.0.3"
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
