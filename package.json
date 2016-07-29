@@ -6,7 +6,8 @@
 	"author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
 	"scripts": {
 		"start": "sudo node --harmony index.js",
-		"test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha"
+		"test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha -- --recursive",
+		"coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
 	},
 	"main": "index.js",
 	"repository": {
