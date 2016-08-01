@@ -6,11 +6,15 @@
 
 const {describe, it} = require('mocha');
 const {expect, should} = require('chai');
-const Authenticator = require('../lib/helper/authenticator');
+const Authenticator = require('../../lib/helper/authenticator');
 
 describe('Authenticator', () => {
-	it('should be allowed', () => {
+	it('should be allowed with not empty string', () => {
 		expect(new Authenticator('1234').isAllowed('1234')).to.be.equal(true);
+	});
+
+	it('should be allowed with empty string', () => {
+		expect(new Authenticator().isAllowed('')).to.be.equal(true);
 	});
 
 	it('should be unallowed', () => {
