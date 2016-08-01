@@ -32,6 +32,7 @@
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
+		"coveralls": "^2.11.11",
 		"istanbul": "^0.4.2",
 		"mocha": "^2.5.3"
 	},
