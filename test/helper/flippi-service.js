@@ -6,17 +6,15 @@
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
-const FlipPiSpeedCharacteristic = require('../../lib/helper/flippi-characteristic');
 const Authenticator = require('../../lib/helper/authenticator');
 const FlipPiService = require('../../lib/helper/flippi-service');
 const uuids = require('../../lib/constant/uuids');
 
-const pin = '1234';
-let service;
-
 describe('FlipPiService', () => {
+	let service;
+
 	beforeEach('Create', () => {
-		service = new FlipPiService(uuids, new Authenticator(pin));
+		service = new FlipPiService(uuids, new Authenticator('1234'));
 	});
 
 	afterEach('Delete', () => {
@@ -24,18 +22,18 @@ describe('FlipPiService', () => {
 	});
 
 	describe('Update', () => {
-		it('should emit an event on "updateValue', (done) => {
-			const characteristic = service.characteristics.find((characteristic) => {
-				return characteristic instanceof FlipPiSpeedCharacteristic;
-			});
+		const local = new FlipPiService(uuids, new Authenticator('1234'));
 
-			service.on('updateValue', (value, source) => {
-				expect(value).to.be.equal('0.75');
-				expect(source).to.be.equal(characteristic);
-				done();
-			});
+		local.characteristics.forEach((characteristic) => {
+			it('should emit an event on "updateValue', (done) => {
+				local.once('updateValue', (value, source) => {
+					expect(value).to.be.a('string');
+					expect(source).to.be.equal(characteristic);
+					done();
+				});
 
-			characteristic.setValue(0.75);
+				characteristic.setValue('Hello');
+			});
 		});
 	})
 });

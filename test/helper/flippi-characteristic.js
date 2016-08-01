@@ -11,25 +11,17 @@ const Authenticator = require('../../lib/helper/authenticator');
 const FlipPiCharacteristic = require('../../lib/helper/flippi-characteristic');
 const uuids = require('../../lib/constant/uuids');
 
-const uuid = uuids.characteristics.speed;
-const pin = '1234';
-let characteristic;
-
 describe('FlipPiCharacteristic', () => {
+	let characteristic;
+
 	beforeEach('Create', () => {
 		characteristic = new FlipPiCharacteristic({
-			uuid: uuid
-		}, new Authenticator(pin));
+			uuid: uuids.characteristics.speed
+		}, new Authenticator('1234'));
 	});
 
 	afterEach('Delete', () => {
 		characteristic = null;
-	});
-
-	describe('Authenticator', () => {
-		it('should be allowed', () => {
-			expect(characteristic.authenticator.isAllowed(pin));
-		});
 	});
 
 	describe('Write', () => {

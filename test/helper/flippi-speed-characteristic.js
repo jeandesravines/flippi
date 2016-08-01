@@ -11,10 +11,10 @@ const Authenticator = require('../../lib/helper/authenticator');
 const FlipPiSpeedCharacteristic = require('../../lib/helper/flippi-speed-characteristic');
 const uuids = require('../../lib/constant/uuids');
 
-const pin = '1234';
-let characteristic;
-
 describe('FlipPiSpeedCharacteristic', () => {
+	const pin = '1234';
+	let characteristic;
+
 	beforeEach('Create', () => {
 		characteristic = new FlipPiSpeedCharacteristic(uuids.characteristics, new Authenticator(pin));
 	});
@@ -55,11 +55,12 @@ describe('FlipPiSpeedCharacteristic', () => {
 
 		it('should be rejected because of delay', (done) => {
 			const data = JSON.stringify({pin: pin, value: 0.75});
+			const buffer = Buffer.from(data);
 
-			characteristic.emit('writeRequest', Buffer.from(data), 0, true, (status) => {
+			characteristic.emit('writeRequest', buffer, 0, true, (status) => {
 				expect(status).to.be.equal(Characteristic.RESULT_SUCCESS);
 
-				characteristic.emit('writeRequest', Buffer.from(data), 0, true, (status) => {
+				characteristic.emit('writeRequest', buffer, 0, true, (status) => {
 					expect(status).to.be.equal(Characteristic.RESULT_UNLIKELY_ERROR);
 					done();
 				});
