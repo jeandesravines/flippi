@@ -34,25 +34,11 @@
 		"chai": "^3.5.0",
 		"coveralls": "^2.11.11",
 		"istanbul": "^0.4.2",
-		"mocha": "^2.5.3",
-		"pre-git": "^3.10.0"
+		"mocha": "^2.5.3"
 	},
 	"homepage": "https://github.com/jeandesravines/flippi",
 	"license": "MIT",
 	"engines": {
 		"node": ">=6.2.2"
-	},
-	"config": {
-		"pre-git": {
-			"commit-msg": "simple",
-			"pre-commit": [
-				"npm test"
-			],
-			"pre-push": [
-				"rm -rf node_modules",
-				"npm install",
-				"npm test"
-			]
-		}
 	}
 }
