@@ -6,7 +6,7 @@
 
 const {beforeEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
-const Bleio = require('../../lib/helper/bleio');
+const Bleio = require('../../lib/service/bleio');
 const Authenticator = require('../../lib/helper/authenticator');
 
 describe('Bleio', () => {
