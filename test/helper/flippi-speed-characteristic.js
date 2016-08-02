@@ -46,7 +46,7 @@ describe('FlipPiSpeedCharacteristic', () => {
 	});
 
 	describe('Write', () => {
-		it('should be rejected because of wring credentials', (done) => {
+		it('should be rejected because of wrong credentials', (done) => {
 			characteristic.emit('writeRequest', null, 0, true, (status) => {
 				expect(status).to.be.equal(Characteristic.RESULT_UNLIKELY_ERROR);
 				done();
