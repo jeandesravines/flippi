@@ -8,8 +8,7 @@
  * @class FlipPi
  */
 const FlipPi = require('./lib/service/flippi');
+const pin = '1234';
 
-////////////////////////////////////////
-////////////////////////////////////////
 
-new FlipPi();
+new FlipPi(pin);
