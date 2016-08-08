@@ -4,11 +4,12 @@
 
 'use strict';
 
-/**
- * @class FlipPi
- */
+const grab = require('ps-grab');
 const FlipPi = require('./lib/service/flippi');
-const pin = '1234';
+const pin = grab('-p') || '1234';
 
+
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 
 new FlipPi(pin);

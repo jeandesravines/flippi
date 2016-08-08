@@ -31,4 +31,18 @@ describe('Bleio', () => {
 			});
 		});
 	});
+
+	describe('Events', () => {
+		it('should log address', () => {
+			const logger = console.log;
+
+			console.log = (data) => {
+				expect(data).to.be.deep.equal('Accept, client: 127.0.0.1');
+			};
+
+			bleio.onAccept('127.0.0.1');
+
+			console.log = logger;
+		});
+	})
 });
