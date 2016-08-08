@@ -30,7 +30,7 @@
 		"@jdes/mutex": "^1.0.0",
 		"@jdes/promisify": "^1.0.0",
 		"johnny-five": "^0.9.6",
-		"raspi-io": "^6.10.0"
+		"raspi-io": "^6.1.0"
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
