@@ -6,19 +6,19 @@
 
 const {beforeEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
-const EngineController = require('../../lib/service/engine-controller');
+const GpioEngineController = require('../../lib/service/gpio-engine-controller');
 
-describe('EngineController', () => {
+describe('GpioEngineController', () => {
 	let controller;
 
 	beforeEach('Create', () => {
-		controller = new EngineController(7);
+		controller = new GpioEngineController(7);
 	});
 
 	describe('Update', () => {
 		it('should set the value to 0.5', () => {
 			controller.setValue(0.5);
-			expect(controller._speed).to.be.equal(parseInt(255 * 0.5, 10));
+			expect(controller._speed).to.be.equal(0.5);
 		});
 
 		it('should set value to 0', () => {

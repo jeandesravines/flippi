@@ -30,8 +30,7 @@
 		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
 		"@jdes/mutex": "^1.0.0",
 		"@jdes/promisify": "^1.0.0",
-		"johnny-five": "^0.10.0",
-		"raspi-io": "^6.1.0"
+		"johnny-five": "^0.10.0"
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
