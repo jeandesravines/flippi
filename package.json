@@ -27,7 +27,7 @@
 	],
 	"dependencies": {
 		"bleno": "^0.4.0",
-		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
+		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git#develop",
 		"@jdes/mutex": "^1.0.0",
 		"@jdes/promisify": "^1.0.0",
 		"johnny-five": "^0.10.0"
