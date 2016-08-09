@@ -37,7 +37,8 @@
 		"coveralls": "^2.11.11",
 		"istanbul": "^0.4.2",
 		"mocha": "^3.0.1",
-		"ps-grab": "^1.0.1"
+		"ps-grab": "^1.0.1",
+		"sinon": "^1.17.5"
 	},
 	"homepage": "https://github.com/jeandesravines/flippi",
 	"license": "MIT",

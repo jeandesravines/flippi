@@ -5,30 +5,35 @@
 'use strict';
 
 const {beforeEach, describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {should} = require('chai');
+const sinon = require('sinon');
 const GpioEngineController = require('../../lib/service/gpio-engine-controller');
 
 describe('GpioEngineController', () => {
+	const channel = 7;
 	let controller;
 
 	beforeEach('Create', () => {
-		controller = new GpioEngineController(7);
+		controller = new GpioEngineController(channel);
 	});
 
 	describe('Update', () => {
-		it('should set the value to 0.5', () => {
-			controller.setValue(0.5);
-			expect(controller._speed).to.be.equal(0.5);
-		});
+		const values = [
+			{in: 0.5, out: 0.5},
+			{in: 0, out: 0},
+			{in: NaN, out: 0}];
 
-		it('should set value to 0', () => {
-			controller.setValue(0);
-			expect(controller._speed).to.be.equal(0);
-		});
+		values.forEach((args) => {
+			it(`should set the value to ${args.in}`, () => {
+				const mock = sinon.mock(controller._board)
+					.expects('setAnalogValue')
+					.once()
+					.withExactArgs(channel, args.out)
+					.returns(Promise.resolve());
 
-		it('should set value to 0 with NaN', () => {
-			controller.setValue(NaN);
-			expect(controller._speed).to.be.equal(0);
+				return controller.setValue(args.in)
+					.then(() => mock.verify());
+			});
 		});
 	});
 });
