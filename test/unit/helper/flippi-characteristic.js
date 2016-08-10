@@ -7,9 +7,9 @@
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
 const Characteristic = require('bleno/lib/characteristic');
-const Authenticator = require('../../lib/helper/authenticator');
-const FlipPiCharacteristic = require('../../lib/helper/flippi-characteristic');
-const uuids = require('../../lib/constant/uuids');
+const Authenticator = require('../../../lib/helper/authenticator');
+const FlipPiCharacteristic = require('../../../lib/helper/flippi-characteristic');
+const uuids = require('../../../lib/constant/uuids');
 
 describe('FlipPiCharacteristic', () => {
 	let characteristic;

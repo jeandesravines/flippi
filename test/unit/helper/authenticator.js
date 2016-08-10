@@ -6,7 +6,7 @@
 
 const {describe, it} = require('mocha');
 const {expect, should} = require('chai');
-const Authenticator = require('../../lib/helper/authenticator');
+const Authenticator = require('../../../lib/helper/authenticator');
 
 describe('Authenticator', () => {
 	describe('Authenticate', () => {
