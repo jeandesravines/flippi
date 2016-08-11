@@ -13,13 +13,11 @@ const mocker = require('../../mock/mocker');
  * @extends EventEmitter
  */
 class ProxyBoard extends EventEmitter {
+	/**
+	 * @constructor
+	 */
 	constructor() {
 		super();
-	}
-
-	on(event, ...args) {
-		super.on(event, ...args);
-		super.emit(event);
 	}
 
 	/**

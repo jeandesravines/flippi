@@ -48,6 +48,7 @@ describe('EngineController', () => {
 				.withExactArgs(channel, Pin.PWM);
 
 			return Promise.resolve(new EngineController(channel, board))
+				.then(() => board.emit('ready'))
 				.then(() => stub.verify());
 		});
 	});
