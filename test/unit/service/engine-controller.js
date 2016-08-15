@@ -8,6 +8,7 @@ const {beforeEach, describe, it} = require('mocha');
 const {should} = require('chai');
 const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
+const catcher = require('../../../lib/module/catcher');
 const {Pin} = require('johnny-five');
 const ProxyBoard = require('../../mock/proxy/proxy-board');
 const EngineController = require('../../../lib/service/engine-controller');
@@ -50,6 +51,12 @@ describe('EngineController', () => {
 			return Promise.resolve(new EngineController(channel, board))
 				.then(() => board.emit('ready'))
 				.then(() => stub.verify());
+		});
+	});
+
+	describe('Coverage', () => {
+		it('should eventually create a instance', () => {
+			catcher(() => new EngineController(channel));
 		});
 	});
 });

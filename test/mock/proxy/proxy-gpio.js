@@ -5,42 +5,13 @@
 'use strict';
 
 const {EventEmitter} = require('events');
+const Mocker = require('../../../lib/module/mocker');
 
-/**
- * @class ProxyGpio Class to proxify Gpio
- * @extends EventEmitter
- */
-class ProxyGpio extends EventEmitter {
-	/**
-	 * @constructor
-	 */
-	constructor() {
-		super();
-	}
-
-	/**
-	 *
-	 * @returns {Promise}
-	 */
-	setAnalogValue() {
-		return Promise.resolve();
-	}
-
-	/**
-	 *
-	 * @param {number} channel
-	 * @returns {Promise}
-	 */
-	open(channel) {
-		if (channel < 0) {
-			throw 'UnknownChannelError';
-		}
-
-		return Promise.resolve();
-	}
-}
 
 //////////////////////////////////////
 //////////////////////////////////////
 
-module.exports = ProxyGpio;
+module.exports = Mocker.create(EventEmitter, {
+	setAnalogValue: () => Promise.resolve(),
+	open: (channel) => channel < 0 ? Promise.reject('UnknownChannelError') : Promise.resolve()
+});

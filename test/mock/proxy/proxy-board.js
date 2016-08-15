@@ -5,43 +5,13 @@
 'use strict';
 
 const {EventEmitter} = require('events');
-const mocker = require('../../mock/mocker');
+const Mocker = require('../../../lib/module/mocker');
 
-
-/**
- * @class ProxyBoard Class to proxify Board
- * @extends EventEmitter
- */
-class ProxyBoard extends EventEmitter {
-	/**
-	 * @constructor
-	 */
-	constructor() {
-		super();
-	}
-
-	/**
-	 *
-	 * @param {number }channel
-	 * @param {number} value
-	 * @returns {Promise}
-	 */
-	analogWrite(channel, value) {
-		return Promise.resolve({channel, value});
-	}
-
-	/**
-	 *
-	 * @param {number} channel
-	 * @param {string} mode
-	 * @returns {Promise}
-	 */
-	pinMode(channel, mode) {
-		return Promise.resolve({channel, mode});
-	}
-}
 
 //////////////////////////////////////
 //////////////////////////////////////
 
-module.exports = ProxyBoard;
+module.exports = Mocker.create(EventEmitter, {
+	analogWrite: () => Promise.resolve(),
+	pinMode: () => Promise.resolve()
+});
