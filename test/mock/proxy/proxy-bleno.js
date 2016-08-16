@@ -5,45 +5,14 @@
 'use strict';
 
 const {EventEmitter} = require('events');
-const mocker = require('../../mock/mocker');
+const Mocker = require('../../../lib/module/mocker');
 
-/**
- * @class ProxyBleno Class to proxify Bleno
- * @extends EventEmitter
- */
-class ProxyBleno extends EventEmitter {
-	/**
-	 * @constructor
-	 */
-	constructor() {
-		super();
-	}
-
-	/**
-	 *
-	 * @param {Array} services
-	 * @param {Function} callback
-	 */
-	setServices(services, callback) {
-		callback();
-	}
-
-	/**
-	 *
-	 * @param {string} title
-	 * @param {Array.<string>} uuids
-	 */
-	startAdvertising(title, uuids) {
-	}
-
-	/**
-	 *
-	 */
-	stopAdvertising() {
-	}
-}
 
 //////////////////////////////////////
 //////////////////////////////////////
 
-module.exports = ProxyBleno;
+module.exports = Mocker.create(EventEmitter, {
+	setServices: (services, callback) => callback(),
+	startAdvertising: () => undefined,
+	stopAdvertising: () => undefined
+});

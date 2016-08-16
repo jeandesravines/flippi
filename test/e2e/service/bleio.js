@@ -7,6 +7,7 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
 const sinon = require('sinon');
+const catcher = require('../../../lib/module/catcher');
 const ProxyBleno = require('../../mock/proxy/proxy-bleno');
 const Bleio = require('../../../lib/service/bleio');
 const Authenticator = require('../../../lib/helper/authenticator');
@@ -14,9 +15,11 @@ const uuids = require('../../../lib/constant/uuids');
 
 describe('Bleio', () => {
 	let bleio;
+	const title = 'Test';
+	const authenticator = new Authenticator('1234');
 
 	beforeEach('Create', () => {
-		bleio = new Bleio('Test', new Authenticator('1234'), new ProxyBleno());
+		bleio = new Bleio(title, authenticator, new ProxyBleno());
 	});
 
 	describe('Events', () => {
@@ -67,6 +70,12 @@ describe('Bleio', () => {
 
 				characteristic.setValue('Hello');
 			});
+		});
+	});
+
+	describe('Coverage', () => {
+		it('should eventually create a instance', () => {
+			catcher(() => bleio = new Bleio(title, authenticator));
 		});
 	});
 });

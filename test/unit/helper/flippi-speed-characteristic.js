@@ -23,6 +23,16 @@ describe('FlipPiSpeedCharacteristic', () => {
 		characteristic = null;
 	});
 
+	describe('Init', () => {
+		it('should set the value to 0', (done) => {
+			characteristic.emit('readRequest', 0, (status, value) => {
+				expect(status).to.be.equal(Characteristic.RESULT_SUCCESS);
+				expect(value.toString()).to.be.equal('0');
+				done();
+			});
+		});
+	});
+
 	describe('Update', () => {
 		it('should set a value and be notified', (done) => {
 			characteristic.on('updateValue', (value) => {

@@ -8,6 +8,7 @@ const {beforeEach, describe, it} = require('mocha');
 const {should, expect} = require('chai');
 const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
+const catcher = require('../../../lib/module/catcher');
 const Gpio = require('@jdes/gpio');
 const ProxyGpio = require('../../mock/proxy/proxy-gpio');
 const GpioEngineController = require('../../../lib/service/gpio-engine-controller');
@@ -20,12 +21,6 @@ describe('GpioEngineController', () => {
 		controller = new GpioEngineController(channel, new ProxyGpio());
 	});
 
-	describe('Create', () => {
-		it('should throw an error', () => {
-			expect(() => new GpioEngineController(-1, new ProxyGpio())).to.throw('UnknownChannelError');
-		});
-	});
-
 	describe('Update', () => {
 		const values = [
 			{in: 0.5, out: 0.5},
@@ -34,7 +29,7 @@ describe('GpioEngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const spy = sinon.spy(controller.gpio, controller.gpio.setAnalogValue.name);
+				const spy = sinon.spy(controller.gpio, 'setAnalogValue');
 
 				return controller.setValue(args.in)
 					.then(() => expect(spy.withArgs(channel, args.out).calledOnce))
@@ -46,11 +41,21 @@ describe('GpioEngineController', () => {
 	describe('Events', () => {
 		it('should init the pin', () => {
 			const gpio = new ProxyGpio();
-			const spy = sinon.spy(gpio, gpio.open.name);
+			const spy = sinon.spy(gpio, 'open');
 
 			return Promise.resolve(new GpioEngineController(channel, gpio))
 				.then(() => expect(spy.withArgs(channel, Gpio.direction.out).calledOnce))
 				.then(() => spy.restore());
+		});
+
+		it('should throw an error', () => {
+			expect(() => new GpioEngineController(-1, new ProxyGpio())).to.throw(Error);
+		});
+	});
+
+	describe('Coverage', () => {
+		it('should eventually create a instance', () => {
+			catcher(() => new GpioEngineController(channel));
 		});
 	});
 });
