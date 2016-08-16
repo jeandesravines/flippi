@@ -4,9 +4,8 @@
 
 'use strict';
 
-const grab = require('ps-grab');
 const FlipPi = require('./lib/service/flippi');
-const pin = grab('-p') || '1234';
+const pin = process.env.PIN || '1234';
 
 
 ////////////////////////////////////////////////////
