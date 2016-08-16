@@ -27,19 +27,21 @@
 		"es6"
 	],
 	"dependencies": {
-		"bleno": "^0.4.0",
 		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git#develop",
 		"@jdes/mutex": "^1.0.0",
-		"@jdes/promisify": "^1.0.0"
+		"@jdes/promisify": "^1.0.0",
+		"bleno": "^0.4.0"
 	},
 	"devDependencies": {
+		"@jdes/catcher": "^1.0.0",
 		"chai": "^3.5.0",
 		"coveralls": "^2.11.11",
-		"johnny-five": "^0.10.0",
 		"istanbul": "^0.4.2",
 		"mocha": "^3.0.1",
-		"ps-grab": "^1.0.1",
 		"sinon": "^1.17.5"
+	},
+	"optionalDependencies": {
+		"johnny-five": "^0.10.0"
 	},
 	"homepage": "https://github.com/jeandesravines/flippi",
 	"license": "MIT",

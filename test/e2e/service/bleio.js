@@ -7,7 +7,7 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
 const sinon = require('sinon');
-const catcher = require('../../../lib/module/catcher');
+const catcher = require('@jdes/catcher');
 const ProxyBleno = require('../../mock/proxy/proxy-bleno');
 const Bleio = require('../../../lib/service/bleio');
 const Authenticator = require('../../../lib/helper/authenticator');
