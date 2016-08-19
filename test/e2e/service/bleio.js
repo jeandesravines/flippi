@@ -41,7 +41,7 @@ describe('Bleio', () => {
 			const mock = sinon.mock(bleio._manager)
 				.expects('startAdvertising')
 				.once()
-				.withExactArgs(bleio.title, [uuids.services.default]);
+				.withExactArgs(bleio.title, [uuids.services.flippi]);
 
 			bleio._manager.emit('stateChange', 'poweredOn');
 			mock.verify();

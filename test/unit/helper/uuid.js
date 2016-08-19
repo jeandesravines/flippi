@@ -10,6 +10,10 @@ const UUID = require('../../../lib/helper/uuid');
 
 describe('UUID', () => {
 	describe('Conversion', () => {
+		it('should throws an error', () => {
+			expect(() => new UUID('Hello')).to.throw(TypeError);
+		});
+
 		it('should be converted', () => {
 			expect(new UUID('637a9500-3d5a-11e6-ac61-9e71128cae77').value)
 				.to.be.equal('637a95003d5a11e6ac619e71128cae77');
