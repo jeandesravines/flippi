@@ -5,7 +5,7 @@
 'use strict';
 
 const {beforeEach, describe, it} = require('mocha');
-const {should} = require('chai');
+const {should, expect} = require('chai');
 const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
 const catcher = require('@jdes/catcher');
@@ -29,13 +29,11 @@ describe('EngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const stub = sinon.mock(controller._gpio)
-					.expects('analogWrite')
-					.once()
-					.withExactArgs(channel, args.out);
+				const spy = sinon.spy(controller._gpio, 'analogWrite');
 
 				return controller.setValue(args.in)
-					.then(() => stub.verify());
+					.then(() => expect(spy.withArgs(channel, args.out).calledOnce))
+					.then(() => spy.restore());
 			});
 		});
 	});
@@ -43,14 +41,24 @@ describe('EngineController', () => {
 	describe('Events', () => {
 		it('should init the pin', () => {
 			const board = new ProxyBoard();
-			const stub = sinon.mock(board)
-				.expects('pinMode')
-				.once()
-				.withExactArgs(channel, Pin.PWM);
+			const spy = sinon.spy(board, 'pinMode');
 
 			return Promise.resolve(new EngineController(channel, board))
 				.then(() => board.emit('ready'))
-				.then(() => stub.verify());
+				.then(() => expect(spy.withArgs(channel, Pin.PWM).calledOnce))
+				.then(() => spy.restore());
+		});
+	});
+
+	describe('Stop', () => {
+		it('should be stopped', () => {
+			const board = new ProxyBoard();
+			const spy = sinon.spy(board, 'analogWrite');
+			const controller = new EngineController(channel, board);
+
+			return controller.stop()
+				.then(() => expect(spy.withArgs(channel, 0).calledOnce))
+				.then(() => spy.restore());
 		});
 	});
 

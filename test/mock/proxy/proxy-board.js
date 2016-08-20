@@ -12,6 +12,7 @@ const Mocker = require('../../../lib/module/mocker');
 //////////////////////////////////////
 
 module.exports = Mocker.create(EventEmitter, {
-	analogWrite: () => Promise.resolve(),
-	pinMode: () => Promise.resolve()
+	analogWrite: () => undefined,
+	close: () => undefined,
+	pinMode: () => undefined
 });
