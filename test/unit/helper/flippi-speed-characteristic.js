@@ -84,8 +84,8 @@ describe('FlipPiSpeedCharacteristic', () => {
 			});
 		});
 
-		it('should writes a value', (done) => {
-			const data = JSON.stringify({pin: pin, value: 0});
+		it('should writes a value and wait until it reset', (done) => {
+			const data = JSON.stringify({pin: pin, value: 0.75});
 
 			characteristic.emit('writeRequest', Buffer.from(data), 0, true, (status) => {
 				expect(status).to.be.equal(Characteristic.RESULT_SUCCESS);
