@@ -29,7 +29,7 @@ describe('GpioEngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const spy = sinon.spy(controller.gpio, 'setAnalogValue');
+				const spy = sinon.spy(controller._gpio, 'setAnalogValue');
 
 				return controller.setValue(args.in)
 					.then(() => expect(spy.withArgs(channel, args.out).calledOnce))
@@ -50,6 +50,18 @@ describe('GpioEngineController', () => {
 
 		it('should throw an error', () => {
 			expect(() => new GpioEngineController(-1, new ProxyGpio())).to.throw(Error);
+		});
+	});
+
+	describe('Stop', () => {
+		it('should be stopped', () => {
+			const gpio = new ProxyGpio();
+			const spy = sinon.spy(gpio, 'close');
+			const controller = new GpioEngineController(channel, gpio);
+
+			return controller.stop()
+				.then(() => expect(spy.withArgs(channel).calledOnce))
+				.then(() => spy.restore());
 		});
 	});
 
