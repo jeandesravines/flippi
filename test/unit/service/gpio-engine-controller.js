@@ -8,7 +8,7 @@ const {beforeEach, describe, it} = require('mocha');
 const {should, expect} = require('chai');
 const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
-const catcher = require('@jdes/catcher');
+const Catcher = require('@jdes/catcher');
 const Gpio = require('@jdes/gpio');
 const ProxyGpio = require('../../mock/proxy/proxy-gpio');
 const GpioEngineController = require('../../../lib/service/gpio-engine-controller');
@@ -67,7 +67,7 @@ describe('GpioEngineController', () => {
 
 	describe('Coverage', () => {
 		it('should eventually create a instance', () => {
-			catcher(() => new GpioEngineController(channel));
+			Catcher.resolve(() => new GpioEngineController(channel));
 		});
 	});
 });

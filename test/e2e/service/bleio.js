@@ -7,7 +7,7 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect, should} = require('chai');
 const sinon = require('sinon');
-const catcher = require('@jdes/catcher');
+const Catcher = require('@jdes/catcher');
 const ProxyBleno = require('../../mock/proxy/proxy-bleno');
 const Bleio = require('../../../lib/service/bleio');
 const Authenticator = require('../../../lib/helper/authenticator');
@@ -75,7 +75,7 @@ describe('Bleio', () => {
 
 	describe('Coverage', () => {
 		it('should eventually create a instance', () => {
-			catcher(() => bleio = new Bleio(title, authenticator));
+			Catcher.resolve(() => bleio = new Bleio(title, authenticator));
 		});
 	});
 });

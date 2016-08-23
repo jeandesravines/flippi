@@ -8,7 +8,7 @@ const {beforeEach, describe, it} = require('mocha');
 const {should, expect} = require('chai');
 const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
-const catcher = require('@jdes/catcher');
+const Catcher = require('@jdes/catcher');
 const {Pin} = require('johnny-five');
 const ProxyBoard = require('../../mock/proxy/proxy-board');
 const EngineController = require('../../../lib/service/engine-controller');
@@ -64,7 +64,7 @@ describe('EngineController', () => {
 
 	describe('Coverage', () => {
 		it('should eventually create a instance', () => {
-			catcher(() => new EngineController(channel));
+			Catcher.resolve(() => new EngineController(channel));
 		});
 	});
 });
