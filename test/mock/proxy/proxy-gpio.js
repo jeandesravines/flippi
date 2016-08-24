@@ -6,6 +6,7 @@
 
 const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/module/mocker');
+const Catcher = require('@jdes/catcher');
 
 
 //////////////////////////////////////
@@ -14,7 +15,5 @@ const Mocker = require('../../../lib/module/mocker');
 module.exports = Mocker.create(EventEmitter, {
 	setAnalogValue: () => Promise.resolve(),
 	close: () => Promise.resolve(),
-	open: (channel) => channel >= 0 ? Promise.resolve() : (() => {
-		throw new Error('UnknownChannelError');
-	})()
+	open: (channel) => channel >= 0 ? Promise.resolve() : Catcher.reject(new Error('UnknownChannelError'))
 });
