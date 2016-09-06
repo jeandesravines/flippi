@@ -5,10 +5,7 @@
 'use strict';
 
 const FlipPi = require('./lib/service/flippi');
-
-const pin = process.env.PIN || '1234';
-const flippi = new FlipPi(pin);
-
+const flippi = new FlipPi();
 
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
