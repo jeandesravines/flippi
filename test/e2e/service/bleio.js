@@ -31,6 +31,7 @@ describe('Bleio', () => {
 
 			bleio._manager.emit('advertisingStart');
 			mock.verify();
+			mock.restore();
 		});
 
 		it('should handle advertisingStart event with sucess', () => {
@@ -45,6 +46,7 @@ describe('Bleio', () => {
 
 			bleio._manager.emit('stateChange', 'poweredOn');
 			mock.verify();
+			mock.restore();
 		});
 
 		it('should handle stateChange event with poweredOff', () => {
@@ -54,6 +56,7 @@ describe('Bleio', () => {
 
 			bleio._manager.emit('stateChange', 'poweredOff');
 			mock.verify();
+			mock.restore();
 		});
 	});
 

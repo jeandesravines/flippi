@@ -21,6 +21,12 @@ describe('GpioEngineController', () => {
 		controller = new GpioEngineController(channel, new ProxyGpio());
 	});
 
+	describe('Create', () => {
+		it('should eventually create a instance. (Coverage)', () => {
+			Catcher.resolve(() => new GpioEngineController(channel));
+		});
+	});
+
 	describe('Update', () => {
 		const values = [
 			{in: 0.5, out: 0.5},
@@ -29,11 +35,14 @@ describe('GpioEngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const spy = sinon.spy(controller._gpio, 'setAnalogValue');
+				const mock = sinon.mock(controller._gpio)
+					.expects('setAnalogValue')
+					.once()
+					.withArgs([channel, args.out]);
 
 				return controller.setValue(args.in)
-					.then(() => expect(spy.withArgs(channel, args.out).calledOnce))
-					.then(() => spy.restore());
+					.then(() => mock.verify())
+					.then(() => mock.restore());
 			});
 		});
 	});
@@ -54,20 +63,15 @@ describe('GpioEngineController', () => {
 	});
 
 	describe('Stop', () => {
-		it('should be stopped', () => {
-			const gpio = new ProxyGpio();
-			const spy = sinon.spy(gpio, 'close');
-			const controller = new GpioEngineController(channel, gpio);
+		it('should stop', () => {
+			const mock = sinon.mock(controller._gpio)
+					.expects('close')
+					.once()
+					.withArgs([channel]);
 
 			return controller.stop()
-				.then(() => expect(spy.withArgs(channel).calledOnce))
-				.then(() => spy.restore());
-		});
-	});
-
-	describe('Coverage', () => {
-		it('should eventually create a instance', () => {
-			Catcher.resolve(() => new GpioEngineController(channel));
+				.then(() => mock.verify())
+				.then(() => mock.restore());
 		});
 	});
 });
