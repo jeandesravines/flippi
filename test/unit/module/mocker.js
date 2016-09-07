@@ -12,7 +12,7 @@ const Mocker = require('../../../lib/module/mocker');
 describe('Mocker', () => {
 	describe('Create', () => {
 		it('should be a child of EventEmitter', () => {
-			const Mock = Mocker.create(EventEmitter);
+			const Mock = Mocker.create(EventEmitter, {});
 
 			expect(new Mock()).to.be.instanceOf(EventEmitter);
 		});

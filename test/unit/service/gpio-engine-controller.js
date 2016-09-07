@@ -35,13 +35,14 @@ describe('GpioEngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const mock = sinon.mock(controller._gpio)
-					.expects('setAnalogValue')
+				const mock = sinon.mock(controller._gpio);
+				const expectations = mock.expects('setAnalogValue')
 					.once()
-					.withArgs([channel, args.out]);
+					.returns(Promise.resolve())
+					.withArgs(channel, args.out);
 
 				return controller.setValue(args.in)
-					.then(() => mock.verify())
+					.then(() => expectations.verify())
 					.then(() => mock.restore());
 			});
 		});
@@ -64,13 +65,13 @@ describe('GpioEngineController', () => {
 
 	describe('Stop', () => {
 		it('should stop', () => {
-			const mock = sinon.mock(controller._gpio)
-					.expects('close')
-					.once()
-					.withArgs([channel]);
+			const mock = sinon.mock(controller._gpio);
+			const expectations = mock.expects('close')
+				.once()
+				.withArgs(channel);
 
 			return controller.stop()
-				.then(() => mock.verify())
+				.then(() => expectations.verify())
 				.then(() => mock.restore());
 		});
 	});

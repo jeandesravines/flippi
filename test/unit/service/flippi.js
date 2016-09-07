@@ -7,60 +7,65 @@
 const {beforeEach, describe, it} = require('mocha');
 const {should, expect} = require('chai');
 const sinon = require('sinon');
-const Catcher = require('@jdes/catcher');
 const uuids = require('../../../lib/constant/uuids');
+const Catcher = require('@jdes/catcher');
 const Flippi = require('../../../lib/service/flippi');
 const ProxyBleio = require('../../mock/proxy/proxy-bleio');
+const ProxyEngineController = require('../../mock/proxy/proxy-engine-controller');
 
 describe('Flippi', () => {
 	let flippi;
 
 	beforeEach('Create', () => {
-		flippi = new Flippi(new ProxyBleio());
+		flippi = new Flippi(new ProxyBleio(), new ProxyEngineController());
+	});
+
+	describe('Create', () => {
+		it('should eventually create a instance. (Coverage)', () => {
+			Catcher.resolve(() => new Flippi());
+		});
 	});
 
 	describe('Update', () => {
-        it('should call onUpdateValue()', () => {
-            const spy = sinon.spy(flippi, 'onUpdateValue');
-            const uuid = '1234';
-            const value = 0.5;
+		it('should call onUpdateValue()', () => {
+			const spy = sinon.spy(flippi, 'onUpdateValue');
+			const uuid = '1234';
+			const value = 0.5;
 
-            flippi._bleio.emit('updateValue', uuid, value);
-			
-            expect(spy.withArgs(uuid, value).calledOnce);
-            spy.restore();
-        });
-        
-        it('should update the speed', (done) => {
-            const uuid = uuids.characteristics.speed;
-            const value = 0.5;
-			const mock = sinon.mock(flippi._engine)
-				.expects('setValue')
+			flippi._bleio.emit('updateValue', value, uuid);
+
+			expect(spy.withArgs(uuid, value).calledOnce);
+			spy.restore();
+		});
+
+		it('should update the speed', () => {
+			const uuid = uuids.characteristics.speed;
+			const value = 0.5;
+			const mock = sinon.mock(flippi._engine);
+			const expectations = mock.expects('setValue')
 				.once()
-				.withArgs([uuid, value]);
+				.withArgs(value);
 
-            flippi._bleio.emit('updateValue', uuid, value);
-			mock.verify();
-            mock.restore();
+			return Promise.resolve(flippi._bleio.emit('updateValue', value, uuid))
+				.then(() => expectations.verify())
+				.then(() => mock.restore());
+		});
+
+		it('should do nothing. (Coverage)', (done) => {
+			flippi._bleio.emit('updateValue', 'unknown', 0.5);
 			done();
-        });
-        
-        it('should do nothing. (Coverage)', (done) => {
-            flippi._bleio.emit('updateValue', 'unknown', 0.5);
-			done();
-        });
+		});
 	});
 
 	describe('Stop', () => {
-		it('should stop', (done) => {
-			const mock = sinon.mock(flippi._bleio)
-				.expects('stop')
+		it('should stop', () => {
+			const mock = sinon.mock(flippi._bleio);
+			const expectations = mock.expects('stop')
 				.once();
 
-			flippi.stop();
-			mock.verify();
-            mock.restore();
-			done();
+			return Promise.resolve(flippi.stop())
+				.then(() => expectations.verify())
+				.then(() => mock.restore());
 		});
 	});
 });

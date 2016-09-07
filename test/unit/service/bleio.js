@@ -22,15 +22,21 @@ describe('Bleio', () => {
 		bleio = new Bleio(title, authenticator, new ProxyBleno());
 	});
 
+	describe('Create', () => {
+		it('should eventually create a instance. (Coverage)', () => {
+			Catcher.resolve(() => bleio = new Bleio(title, authenticator));
+		});
+	});
+
 	describe('Events', () => {
 		it('should handle advertisingStart event', () => {
-			const mock = sinon.mock(bleio._manager)
-				.expects('setServices')
+			const mock = sinon.mock(bleio._manager);
+			const expectations = mock.expects('setServices')
 				.once()
 				.withArgs([bleio._service]);
 
 			bleio._manager.emit('advertisingStart');
-			mock.verify();
+			expectations.verify();
 			mock.restore();
 		});
 
@@ -39,23 +45,23 @@ describe('Bleio', () => {
 		});
 
 		it('should handle stateChange event with poweredOn', () => {
-			const mock = sinon.mock(bleio._manager)
-				.expects('startAdvertising')
+			const mock = sinon.mock(bleio._manager);
+			const expectations = mock.expects('startAdvertising')
 				.once()
 				.withExactArgs(bleio.title, [uuids.services.flippi]);
 
 			bleio._manager.emit('stateChange', 'poweredOn');
-			mock.verify();
+			expectations.verify();
 			mock.restore();
 		});
 
 		it('should handle stateChange event with poweredOff', () => {
-			const mock = sinon.mock(bleio._manager)
-				.expects('stopAdvertising')
+			const mock = sinon.mock(bleio._manager);
+			const expectations = mock.expects('stopAdvertising')
 				.once();
 
 			bleio._manager.emit('stateChange', 'poweredOff');
-			mock.verify();
+			expectations.verify();
 			mock.restore();
 		});
 	});
@@ -76,9 +82,15 @@ describe('Bleio', () => {
 		});
 	});
 
-	describe('Coverage', () => {
-		it('should eventually create a instance', () => {
-			Catcher.resolve(() => bleio = new Bleio(title, authenticator));
+	describe('Stop', () => {
+		it('should stop', () => {
+			const mock = sinon.mock(bleio._manager);
+			const expectations = mock.expects('stopAdvertising')
+				.once();
+
+			return Promise.resolve(bleio.stop())
+				.then(() => expectations.verify())
+				.then(() => mock.restore());
 		});
 	});
 });
