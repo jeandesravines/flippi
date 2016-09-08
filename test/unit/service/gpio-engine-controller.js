@@ -22,7 +22,7 @@ describe('GpioEngineController', () => {
 	});
 
 	describe('Create', () => {
-		it('should eventually create a instance. (Coverage)', () => {
+		it('should eventually create an instance. (Coverage)', () => {
 			Catcher.resolve(() => new GpioEngineController(channel));
 		});
 	});
