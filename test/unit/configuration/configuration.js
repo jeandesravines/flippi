@@ -10,11 +10,17 @@ const {expect, should} = require('chai');
 describe('Configuration', () => {
     const filename = '../../../lib/configuration/configuration';
     const configuration = require(filename);
+	const environement = Object.assign({}, process.env);
     
 	describe('content', () => {
         beforeEach('Delete require\' cache', () => {
             delete require.cache[require.resolve(filename)];
         });
+		
+		afterEach('Reset process.env', () => {
+			Object.assign(process.env, environement);
+            delete require.cache[require.resolve(filename)];
+		});
         
 		it('should be the default configuration', () => {
 			expect(require(filename)).to.be.deep.equal(configuration);

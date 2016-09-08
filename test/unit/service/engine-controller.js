@@ -21,6 +21,12 @@ describe('EngineController', () => {
 		controller = new EngineController(channel, new ProxyBoard());
 	});
 
+	describe('Create', () => {
+		it('should eventually create a instance. (Coverage)', () => {
+			Catcher.resolve(() => new EngineController(channel));
+		});
+	});
+
 	describe('Update', () => {
 		const values = [
 			{in: 0.5, out: 127},
@@ -29,11 +35,14 @@ describe('EngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const spy = sinon.spy(controller._gpio, 'analogWrite');
+				const mock = sinon.mock(controller._gpio);
+				const expectations = mock.expects('analogWrite')
+					.once()
+					.withArgs(channel, args.out);
 
 				return controller.setValue(args.in)
-					.then(() => expect(spy.withArgs(channel, args.out).calledOnce))
-					.then(() => spy.restore());
+					.then(() => expectations.verify())
+					.then(() => mock.restore());
 			});
 		});
 	});
@@ -52,19 +61,14 @@ describe('EngineController', () => {
 
 	describe('Stop', () => {
 		it('should be stopped', () => {
-			const board = new ProxyBoard();
-			const spy = sinon.spy(board, 'analogWrite');
-			const controller = new EngineController(channel, board);
+			const mock = sinon.mock(controller._gpio);
+			const expectations = mock.expects('analogWrite')
+				.once()
+				.withArgs(channel, 0);
 
 			return controller.stop()
-				.then(() => expect(spy.withArgs(channel, 0).calledOnce))
-				.then(() => spy.restore());
-		});
-	});
-
-	describe('Coverage', () => {
-		it('should eventually create a instance', () => {
-			Catcher.resolve(() => new EngineController(channel));
+				.then(() => expectations.verify())
+				.then(() => mock.restore());
 		});
 	});
 });
