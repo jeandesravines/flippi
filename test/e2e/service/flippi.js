@@ -8,7 +8,6 @@ const {beforeEach, describe, it} = require('mocha');
 const {should, expect} = require('chai');
 const sinon = require('sinon');
 const uuids = require('../../../lib/constant/uuids');
-const Catcher = require('@jdes/catcher');
 const Flippi = require('../../../lib/service/flippi');
 const ProxyBleio = require('../../mock/proxy/proxy-bleio');
 const ProxyEngineController = require('../../mock/proxy/proxy-engine-controller');
@@ -21,8 +20,8 @@ describe('Flippi', () => {
 	});
 
 	describe('Create', () => {
-		it('should eventually create a instance. (Coverage)', () => {
-			Catcher.resolve(() => new Flippi());
+		it('should create an instance. (Coverage)', () => {
+			new Flippi();
 		});
 	});
 

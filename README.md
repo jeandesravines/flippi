@@ -1,4 +1,4 @@
-# flippi
+# Flippi
 
 Skateboard Bluetooth Low Energy (BLE) controller
 
@@ -11,22 +11,28 @@ $ git clone https://github.com/jeandesravines/flippi.git
 
 ## Usage
 
-Start:
+Launch automatically as sudo:
 
 ```shell
 $ npm start
 ```
 
-## Environment Variables
+## Environment variables
+
+Environment variables can be passed to overide the default configuration.
 
 ### Motor's 1 channel
 
-Options : `CHANNEL_MOTOR_1`
-Default : 5
-Example : `CHANNEL_MOTOR_1IN=7 npm start`
+The GPIO channel for the motor 1.
+
+- Options : `CHANNEL_MOTOR_1`
+- Default : `5`
+- Example : `CHANNEL_MOTOR_1=7 npm start`
 
 ### Pin
 
-Options : `PIN`
-Default : 1234
-Example : `PIN=2468 npm start`
+The Pin to secure the communication.
+
+- Options : `PIN`
+- Default : `1234`
+- Example : `PIN=2468 npm start`
