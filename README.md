@@ -19,7 +19,7 @@ $ npm start
 
 ## Environment variables
 
-Environment variables can be passed to overide the default configuration.
+Environment variables can be passed to override the default configuration.
 
 ### Motor's 1 channel
 
