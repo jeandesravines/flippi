@@ -57,10 +57,26 @@ npm install
 
 ## Usage
 
-Launch automatically as sudo:
+### Start
+
+Launch as sudo:
 
 ```shell
-npm start
+sudo npm start
+```
+
+### Test
+
+Unit tests as sudo:
+
+```shell
+sudo npm test
+```
+
+E2E tests as sudo:
+
+```shell
+sudo npm run test-e2e
 ```
 
 

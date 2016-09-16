@@ -5,7 +5,7 @@
 	"description": "Skateboard Bluetooth Low Energy (BLE) controller.",
 	"author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
 	"scripts": {
-		"start": "sudo node index.js",
+		"start": "node index.js",
 		"test": "rm -rf coverage ; node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit",
 		"test-e2e": "rm -rf coverage ; node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit test/e2e",
 		"coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
@@ -46,6 +46,6 @@
 	"homepage": "https://github.com/jeandesravines/flippi",
 	"license": "MIT",
 	"engines": {
-		"node": ">=6.2.2"
+		"node": ">=6.0.0"
 	}
 }
