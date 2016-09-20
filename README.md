@@ -67,13 +67,13 @@ sudo npm start
 
 ### Test
 
-Unit tests as sudo:
+Launch Unit tests as sudo:
 
 ```shell
 sudo npm test
 ```
 
-E2E tests as sudo:
+Launch E2E tests as sudo:
 
 ```shell
 sudo npm run test-e2e
