@@ -28,7 +28,7 @@
 	],
 	"dependencies": {
 		"@jdes/catcher": "^2.0.0",
-		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git#develop",
+		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
 		"@jdes/mutex": "^1.0.0",
 		"@jdes/promisify": "^1.0.0",
 		"bleno": "^0.4.0"
