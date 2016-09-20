@@ -78,7 +78,7 @@ Launch E2E tests as sudo:
 ```shell
 sudo npm run test-e2e
 ```
-
+ 
 
 ## Environment variables
 
