@@ -97,14 +97,37 @@ GPIO channels' settings.
 
 The GPIO channel for the motor 1.
 
-- Options : `CHANNEL_MOTOR_1`
-- Default : `5`
-- Example : `CHANNEL_MOTOR_1=7 npm start`
+- Options: `CHANNEL_MOTOR_1`
+- Type: `Number`
+- Default: `5`
+- Example: `CHANNEL_MOTOR_1=7 npm start`
+
+### Device
+
+The used compatible gpio's device.  
+If `GPIO`, the local GPIO will be used.  
+If `FIVE`, the USB connected device will be used. In this case, [Jonny Five](http://johnny-five.io/) will be used to communicate.
+
+- Options: `DEVICE`
+- Type: `String`
+- Values: `GPIO` | `FIVE`
+- Default: `GPIO`
+- Example: `DEVICE=FIVE npm start`
+
+### Name
+
+The name of the application.
+
+- Options: `NAME`
+- Type: `String`
+- Default: `Flippi`
+- Example: `Name=Hello npm start`
 
 ### Pin
 
 The Pin to secure the communication between the remote and the application.
 
-- Options : `PIN`
-- Default : `1234`
-- Example : `PIN=2468 npm start`
+- Options: `PIN`
+- Type: `String`
+- Default: `1234`
+- Example: `PIN=2468 npm start`
