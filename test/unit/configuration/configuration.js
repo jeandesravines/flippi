@@ -27,15 +27,19 @@ describe('Configuration', () => {
 		});
         
 		it('should be customized', () => {
-            process.env.PIN = 'TEST_PIN';
-            process.env.CHANNEL_MOTOR_1 = 'TEST_CHANNEL_MOTOR_1';
-            
+			process.env.CHANNEL_MOTOR_1 = 'TEST_CHANNEL_MOTOR_1';
+			process.env.DEVICE = 'FIVE';
+			process.env.NAME = 'Hello';
+			process.env.PIN = 'TEST_PIN';
+
 			expect(require(filename)).to.be.deep.equal({
-                pin: process.env.PIN,
                 channels: {
                     motor1: process.env.CHANNEL_MOTOR_1
-                }
-            });
+                },
+				device: process.env.DEVICE,
+				name: process.env.NAME,
+				pin: process.env.PIN
+			});
 		});
 	});
 });
