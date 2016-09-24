@@ -19,12 +19,6 @@ describe('Flippi', () => {
 		flippi = new Flippi(new ProxyBleio(), new ProxyEngineController());
 	});
 
-	describe('Create', () => {
-		it('should create an instance. (Coverage)', () => {
-			new Flippi();
-		});
-	});
-
 	describe('Update', () => {
 		it('should call onUpdateValue()', () => {
 			const spy = sinon.spy(flippi, 'onUpdateValue');
