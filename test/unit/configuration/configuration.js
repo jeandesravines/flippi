@@ -27,18 +27,20 @@ describe('Configuration', () => {
 		});
         
 		it('should be customized', () => {
-			process.env.CHANNEL_MOTOR_1 = 'TEST_CHANNEL_MOTOR_1';
-			process.env.DEVICE = 'FIVE';
-			process.env.NAME = 'Hello';
-			process.env.PIN = 'TEST_PIN';
+			process.env.FLIPPI_CHANNEL_MOTOR_1 = 'TEST_CHANNEL_MOTOR_1';
+			process.env.FLIPPI_DEVICE = 'FIVE';
+			process.env.FLIPPI_NAME = 'Hello';
+			process.env.FLIPPI_PIN = 'TEST_PIN';
+			process.env.NODE_ENV = 'production';
 
 			expect(require(filename)).to.be.deep.equal({
                 channels: {
-                    motor1: process.env.CHANNEL_MOTOR_1
+                    motor1: process.env.FLIPPI_CHANNEL_MOTOR_1
                 },
-				device: process.env.DEVICE,
-				name: process.env.NAME,
-				pin: process.env.PIN
+				device: process.env.FLIPPI_DEVICE,
+				environment: process.env.NODE_ENV,
+				name: process.env.FLIPPI_NAME,
+				pin: process.env.FLIPPI_PIN
 			});
 		});
 	});
