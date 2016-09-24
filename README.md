@@ -8,9 +8,6 @@ Skateboard Bluetooth Low Energy (BLE) controller
 * [Setup](#setup)
 * [Usage](#usage)
 * [Environment variables](#environment-variables)
-    * [Channels](#channels) 
-        * [Motor 1](#motor-1) 
-    * [Pin](#pin)
 
 
 ## Setup
@@ -33,7 +30,7 @@ It was tested on:
 - libbluetooth-dev
 - libudev-dev
 
-#### Install dependencies
+### Install the dependencies
 
 ```shell
 # Node.js v6
@@ -49,7 +46,7 @@ sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
 sudo 'Flippi' > /etc/hostname
 ```
 
-### Download and install
+### Install the application
 
 This application can then be installed with git and npm:
 ```shell
@@ -88,7 +85,6 @@ sudo npm run test-e2e
 
 Environment variables can be passed to override the default configuration.
 
-
 ### Channels
 
 GPIO channels' settings.
@@ -104,15 +100,17 @@ The GPIO channel for the motor 1.
 
 ### Device
 
-The used compatible gpio's device.  
-If `GPIO`, the local GPIO will be used.  
-If `FIVE`, the USB connected device will be used. In this case, [Jonny Five](http://johnny-five.io/) will be used to communicate.
-
 - Options: `DEVICE`
 - Type: `String`
 - Values: `GPIO` | `FIVE`
 - Default: `GPIO`
 - Example: `DEVICE=FIVE npm start`
+
+#### Roles
+
+- `GPIO`: The local Raspberry's GPIO  
+- `FIVE`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used to communicate.
+
 
 ### Name
 
@@ -121,7 +119,7 @@ The name of the application.
 - Options: `NAME`
 - Type: `String`
 - Default: `Flippi`
-- Example: `Name=Hello npm start`
+- Example: `NAME=Hello npm start`
 
 ### Pin
 
