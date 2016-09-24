@@ -100,8 +100,6 @@ The GPIO channel for the motor 1.
 
 ### Device
 
-The compatible gpio device to use.  
-
 - Options: `DEVICE`
 - Type: `String`
 - Values: `GPIO` | `FIVE`
