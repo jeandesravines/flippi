@@ -38,11 +38,15 @@ It was tested on:
 ```shell
 # Node.js v6
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo apt-get update
+sudo apt-get install -y nodejs npm build-essential
 
 # Dependencies
 sudo apt-get update
 sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
+
+# Config
+sudo 'Flippi' > /etc/hostname
 ```
 
 ### Download and install
