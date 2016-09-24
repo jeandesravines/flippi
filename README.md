@@ -100,6 +100,8 @@ The GPIO channel for the motor 1.
 
 ### Device
 
+The used compatible gpio's device.  
+
 - Options: `DEVICE`
 - Type: `String`
 - Values: `GPIO` | `FIVE`
@@ -110,7 +112,6 @@ The GPIO channel for the motor 1.
 
 - `GPIO`: The local Raspberry's GPIO  
 - `FIVE`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used to communicate.
-
 
 ### Name
 
