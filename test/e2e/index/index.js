@@ -4,23 +4,19 @@
 
 'use strict';
 
-const {beforeEach, describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {describe, it} = require('mocha');
+const {expect} = require('chai');
 const exec = require('child_process').exec;
 
-describe.only('index.js', () => {
-    it('exec "npm start"', (done) => {
-        const child = exec('npm start', (error) => {
-            if (error) {
-               done(error);
-            }
-        });
+describe('index.js', () => {
+	it('exec "npm start"', (done) => {
+		const child = exec('npm start');
 
-        child.on('exit', (code) => {
-            expect(code).to.be.equal(null);
-            done();
-        });
+		child.on('exit', (code) => {
+			expect(code).to.be.equal(null);
+			done();
+		});
 
-        child.kill('SIGKILL');
-    });
+		child.kill();
+	});
 });
