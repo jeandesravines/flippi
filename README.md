@@ -100,7 +100,7 @@ The GPIO channel for the motor 1.
 Example: 
 
 ```shell
-FLIPPI_CHANNEL_MOTOR_1=7 npm start
+sudo FLIPPI_CHANNEL_MOTOR_1=7 npm start
 ```
 
 ### Device
@@ -109,19 +109,19 @@ The used compatible gpio's device.
 
 - Options: `FLIPPI_DEVICE`
 - Type: `String`
-- Values: `GPIO` | `FIVE`
-- Default: `GPIO`
+- Values: `gpio` | `five`
+- Default: `gpio`
 
 Example: 
 
 ```shell
-FLIPPI_DEVICE=FIVE npm start
+sudo FLIPPI_DEVICE=five npm start
 ```
 
 #### Roles
 
-- `GPIO`: The local Raspberry's GPIO  
-- `FIVE`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used to communicate.
+- `gpio`: The local Raspberry's GPIO.  In this case, [@jdes/gpio](https://github.com/jeandesravines/gpio) will be used.
+- `five`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used.
 
 
 ### Environment
@@ -131,12 +131,12 @@ The execution development
 - Options: `NODE_ENV`
 - Type: `String`
 - Values: `debug` | `production` | `test`
-- Default: `debug`
+- Default: `production`
 
 Example: 
 
 ```shell
-NODE_ENV=debug npm start
+sudo NODE_ENV=debug npm start
 ```
 
 
@@ -151,7 +151,7 @@ The name of the application.
 Example: 
 
 ```shell
-FLIPPI_NAME=Hello npm start
+sudo FLIPPI_NAME=Hello npm start
 ```
 
 ### Pin
@@ -165,5 +165,5 @@ The Pin to secure the communication between the remote and the application.
 Example: 
 
 ```shell
-FLIPPI_PIN=2468 npm start
+sudo FLIPPI_PIN=2468 npm start
 ```
