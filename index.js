@@ -5,7 +5,9 @@
 'use strict';
 
 const configuration = require('./lib/configuration/configuration');
-const devices = require('./lib/constant/device-names');
+const devices = require('./lib/constant/devices');
+const environments = require('./lib/constant/environments');
+const debug = require('./lib/helper/debug');
 const FlipPi = require('./lib/service/flippi');
 const Bleio = require('./lib/service/bleio');
 const Authenticator = require('./lib/helper/authenticator');
@@ -17,10 +19,10 @@ const PIN = configuration.pin;
 const DEVICE = configuration.device;
 const NAME = configuration.name;
 
-////////////////////////////////////////////////////
-////////////////////////////////////////////////////
+///////////////////////////////////////////////
+///////////////////////////////////////////////
 
-const engine = DEVICE === devices.gpio ?  new GpioEngineController(CHANNEL_MOTOR_1) : new EngineController(CHANNEL_MOTOR_1);
+const engine = DEVICE === devices.gpio ? new GpioEngineController(CHANNEL_MOTOR_1) : new EngineController(CHANNEL_MOTOR_1);
 const bleio = new Bleio(NAME, new Authenticator(PIN));
 const flippi = new FlipPi(bleio, engine);
 
