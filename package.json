@@ -33,7 +33,8 @@
     "@jdes/promisify": "^1.0.0",
     "bleno": "^0.4.0",
     "debug": "^2.2.0",
-    "johnny-five": "^0.10.0"
+    "johnny-five": "^0.10.0",
+    "segfault-handler": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
