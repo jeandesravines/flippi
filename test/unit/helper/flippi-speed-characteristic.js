@@ -5,7 +5,7 @@
 'use strict';
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {expect} = require('chai');
 const Characteristic = require('bleno/lib/characteristic');
 const Authenticator = require('../../../lib/helper/authenticator');
 const FlipPiSpeedCharacteristic = require('../../../lib/helper/flippi-speed-characteristic');

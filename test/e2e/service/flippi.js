@@ -5,7 +5,7 @@
 'use strict';
 
 const {beforeEach, describe, it} = require('mocha');
-const {should, expect} = require('chai');
+const {expect} = require('chai');
 const sinon = require('sinon');
 const uuids = require('../../../lib/constant/uuids');
 const Flippi = require('../../../lib/service/flippi');

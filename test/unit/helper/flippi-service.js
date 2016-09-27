@@ -5,7 +5,7 @@
 'use strict';
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {expect} = require('chai');
 const Authenticator = require('../../../lib/helper/authenticator');
 const FlipPiService = require('../../../lib/helper/flippi-service');
 const uuids = require('../../../lib/constant/uuids');

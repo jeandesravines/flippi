@@ -5,7 +5,7 @@
 'use strict';
 
 const {describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {expect} = require('chai');
 const uuids = require('../../../lib/constant/uuids');
 
 describe('uuids', () => {
