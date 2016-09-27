@@ -33,13 +33,14 @@ It was tested on:
 ### Install the dependencies
 
 ```shell
+# Update
+sudo apt-get update
+
 # Node.js v6
 curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get update
 sudo apt-get install -y nodejs npm build-essential
 
 # Dependencies
-sudo apt-get update
 sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
 
 # Config
@@ -138,24 +139,6 @@ Example:
 ```shell
 sudo NODE_ENV=debug npm start
 ```
-
-
-
-### Environment
-
-The execution development
-
-- Options: `NODE_ENV`
-- Type: `String`
-- Values: `debug` | `production` | `test`
-- Default: `debug`
-
-Example: 
-
-```shell
-NODE_ENV=debug npm start
-```
-
 
 ### Name
 

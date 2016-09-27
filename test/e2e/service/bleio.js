@@ -5,7 +5,7 @@
 'use strict';
 
 const {beforeEach, describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {expect} = require('chai');
 const sinon = require('sinon');
 const ProxyBleno = require('../../mock/proxy/proxy-bleno');
 const Bleio = require('../../../lib/service/bleio');
