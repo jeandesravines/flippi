@@ -140,26 +140,6 @@ Example:
 sudo NODE_ENV=debug npm start
 ```
 
-<<<<<<< HEAD
-
-### Environment
-
-The execution development
-
-- Options: `NODE_ENV`
-- Type: `String`
-- Values: `debug` | `production` | `test`
-- Default: `debug`
-
-Example: 
-
-```shell
-NODE_ENV=debug npm start
-```
-
-
-=======
->>>>>>> develop
 ### Name
 
 The name of the application.
