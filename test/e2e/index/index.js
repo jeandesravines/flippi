@@ -8,7 +8,11 @@ const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const exec = require('child_process').exec;
 
+<<<<<<< HEAD
+describe.only('index.js', () => {
+=======
 describe('index.js', () => {
+>>>>>>> ad3d23f3e84e014d21bda575253119047444c761
 	it('exec "npm start"', (done) => {
 		const child = exec('npm start');
 

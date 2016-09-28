@@ -5,18 +5,21 @@
 'use strict';
 
 const {describe, it} = require('mocha');
-const {expect, should} = require('chai');
+const {expect} = require('chai');
 const environments = require('../../../lib/constant/environments');
 const devices = require('../../../lib/constant/devices');
 
 describe('Configuration', () => {
 	describe('content', () => {
-		const filename = '../../../lib/configuration/configuration';
-		const configuration = require(filename);
-		const environment = Object.assign({}, process.env);
+		const configurationFilename = '../../../lib/configuration/configuration';
+		const processEnvVariables = Object.assign({}, process.env);
 
 		function clear() {
-			delete require.cache[require.resolve(filename)];
+			delete require.cache[require.resolve(configurationFilename)];
+		}
+		
+		function getConfiguration() {
+			return require(configurationFilename);
 		}
 
 		beforeEach('Delete require\'s cache', () => {
@@ -25,20 +28,17 @@ describe('Configuration', () => {
 
 		afterEach('Reset process.env', () => {
 			clear();
-			Object.assign(process.env, environment);
-		});
-
-		it('should be the default configuration', () => {
-			expect(require(filename)).to.be.deep.equal(configuration);
+			Object.assign(process.env, processEnvVariables);
 		});
 
 		it('should be the default configuration without NODE_ENV', () => {
 			process.env.NODE_ENV = '';
 
-			const content = require(filename);
+			const content = getConfiguration();
 			const environment = content.environment;
+			const production = environments.production
 
-			expect(environment).to.be.deep.equal(environments.production);
+			expect(environment).to.be.deep.equal(production);
 		});
 
 		it('should be customized', () => {
@@ -48,7 +48,7 @@ describe('Configuration', () => {
 			process.env.FLIPPI_PIN = 'TEST_PIN';
 			process.env.NODE_ENV = environments.debug;
 
-			expect(require(filename)).to.be.deep.equal({
+			expect(getConfiguration()).to.be.deep.equal({
 				channels: {
 					motor1: process.env.FLIPPI_CHANNEL_MOTOR_1
 				},

@@ -1,5 +1,8 @@
-language: 'node_js'
+sudo: required
+language: node_js
 node_js:
-    - '6'
-after_success: 'npm run coveralls'
-sudo: 'required'
+    - "6"
+test:
+    - npm test
+after_success: 
+    - npm run coveralls
