@@ -25,6 +25,8 @@ let flippi;
 ///////////////////////////////////////////////
 ///////////////////////////////////////////////
 
+debug('Starting');
+debug('Configuration', configuration);
 
 segfaultHandler.registerHandler('');
 process.on('exit', () => flippi && flippi.stop());
@@ -33,8 +35,10 @@ process.on('exit', () => flippi && flippi.stop());
 //////////////////////////////////////////////////
 
 
-const EngineClassController =  DEVICE === devices.gpio ? GpioEngineController : EngineController;
+const EngineClassController = DEVICE === devices.gpio ? GpioEngineController : EngineController;
 const engine = new EngineClassController(CHANNEL_MOTOR_1);
 const bleio = new Bleio(NAME, new Authenticator(PIN));
 
 flippi = new FlipPi(bleio, engine);
+
+debug('Started');
