@@ -1,53 +1,54 @@
 {
-    "name": "@jdes/flippi",
-    "private": true,
-    "version": "1.0.0",
-    "description": "Skateboard Bluetooth Low Energy (BLE) controller.",
-    "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
-    "scripts": {
-        "start": "node index.js",
-        "test": "rm -rf coverage ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit",
-        "test-e2e": "rm -rf coverage ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit test/e2e",
-        "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
-    },
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jeandesravines/flippi.git"
-    },
-    "bugs": {
-        "url": "https://github.com/jeandesravines/flippi/issues"
-    },
-    "keywords": [
-        "gpio",
-        "pulse width modulation",
-        "pwm",
-        "raspberry pi",
-        "promise",
-        "es6"
-    ],
-    "dependencies": {
-        "@jdes/catcher": "^2.0.0",
-        "@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
-        "@jdes/mutex": "^1.0.0",
-        "@jdes/promisify": "^1.0.0",
-        "bleno": "^0.4.0",
-        "debug": "^2.2.0",
-        "johnny-five": "^0.10.0"
-    },
-    "devDependencies": {
-        "chai": "^3.5.0",
-        "coveralls": "^2.11.11",
-        "istanbul": "^0.4.2",
-        "mocha": "^3.0.1",
-        "sinon": "^1.17.5"
-    },
-    "optionalDependencies": {
-        "segfault-handler": "^1.0.0"
-    },
-    "homepage": "https://github.com/jeandesravines/flippi",
-    "license": "MIT",
-    "engines": {
-        "node": ">=6.0.0"
-    }
+	"name": "@jdes/flippi",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Skateboard Bluetooth Low Energy (BLE) controller.",
+	"author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
+	"scripts": {
+		"clean": "rm -rf coverage 2> /dev/null",
+		"coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
+		"start": "node index.js",
+		"test": "npm run clean ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit",
+		"test-service": "npm run clean ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit test/service"
+	},
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jeandesravines/flippi.git"
+	},
+	"bugs": {
+		"url": "https://github.com/jeandesravines/flippi/issues"
+	},
+	"keywords": [
+		"gpio",
+		"pulse width modulation",
+		"pwm",
+		"raspberry pi",
+		"promise",
+		"es6"
+	],
+	"dependencies": {
+		"@jdes/catcher": "^2.0.0",
+		"@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
+		"@jdes/mutex": "^1.0.0",
+		"@jdes/promisify": "^1.0.0",
+		"bleno": "^0.4.0",
+		"debug": "^2.2.0",
+		"johnny-five": "^0.10.0"
+	},
+	"devDependencies": {
+		"chai": "^3.5.0",
+		"coveralls": "^2.11.11",
+		"istanbul": "^0.4.2",
+		"mocha": "^3.0.1",
+		"sinon": "^1.17.5"
+	},
+	"optionalDependencies": {
+		"segfault-handler": "^1.0.0"
+	},
+	"homepage": "https://github.com/jeandesravines/flippi",
+	"license": "MIT",
+	"engines": {
+		"node": ">=6.0.0"
+	}
 }
