@@ -34,7 +34,6 @@ process.on('exit', () => flippi && flippi.stop());
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
-
 const EngineClassController = DEVICE === devices.gpio ? GpioEngineController : EngineController;
 const engine = new EngineClassController(CHANNEL_MOTOR_1);
 const bleio = new Bleio(NAME, new Authenticator(PIN));

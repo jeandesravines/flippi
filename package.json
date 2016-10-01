@@ -8,6 +8,7 @@
 		"clean": "rm -rf coverage 2> /dev/null",
 		"coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
 		"start": "node index.js",
+		"debug": "NODE_ENV=debug FLIPPI_CHANNEL_MOTOR_1=13 npm start",
 		"test": "npm run clean ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit",
 		"test-service": "npm run clean ; NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/unit test/service"
 	},
