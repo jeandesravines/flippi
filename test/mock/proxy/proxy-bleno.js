@@ -6,6 +6,7 @@
 
 const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/module/mocker');
+const noop = require('../../../lib/module/noop');
 
 
 //////////////////////////////////////
@@ -13,6 +14,6 @@ const Mocker = require('../../../lib/module/mocker');
 
 module.exports = Mocker.create(EventEmitter, {
 	setServices: (services, callback) => callback(),
-	startAdvertising: () => undefined,
-	stopAdvertising: () => undefined
+	startAdvertising:  noop,
+	stopAdvertising:  noop
 });
