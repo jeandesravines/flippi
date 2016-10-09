@@ -20,7 +20,7 @@ describe('Flippi', () => {
 	});
 
 	describe('Update', () => {
-		it('should call onUpdateValue()', () => {
+		it('should handle onUpdateValue event', () => {
 			const spy = sinon.spy(flippi, 'onUpdateValue');
 			const uuid = '1234';
 			const value = 0.5;
@@ -29,6 +29,10 @@ describe('Flippi', () => {
 
 			expect(spy.withArgs(uuid, value).calledOnce);
 			spy.restore();
+		});
+
+		it('should handle onUpdateValue event and do nothing.', () => {
+			flippi._bleio.emit('updateValue', 'unknown', 0.5);
 		});
 
 		it('should update the speed', () => {
@@ -43,11 +47,6 @@ describe('Flippi', () => {
 				.then(() => expectations.verify())
 				.then(() => mock.restore());
 		});
-
-		it('should do nothing. (Coverage)', (done) => {
-			flippi._bleio.emit('updateValue', 'unknown', 0.5);
-			done();
-		});
 	});
 
 	describe('Stop', () => {
@@ -59,6 +58,16 @@ describe('Flippi', () => {
 			return Promise.resolve(flippi.stop())
 				.then(() => expectations.verify())
 				.then(() => mock.restore());
+		});
+	});
+
+	describe('Events', () => {
+		it('should handle onReady event', () => {
+			const spy = sinon.spy(flippi, 'emit');
+
+			flippi._engine.emit('ready');
+			expect(spy.calledOnce);
+			spy.restore();
 		});
 	});
 });

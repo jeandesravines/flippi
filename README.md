@@ -14,12 +14,12 @@ Skateboard Bluetooth Low Energy (BLE) controller
 
 ### Environment
 
-This application was created for Raspberry 2 B+ on Raspbian and developed on macOS.
+This application was created for Raspberry 2 B+ on Raspbian and developed on macOS.  
 It was tested on:
-- Raspbian (Production)
+- Raspbian 8.0 Jessie (Production)
 - macOS 10.12 (Development + Test)
 - Ubuntu 14.04 (Development + Test)
-- Debian (Test)
+- Ubuntu 12.04 (Test)
 
 ### Dependencies
 
@@ -37,8 +37,8 @@ It was tested on:
 sudo apt-get update
 
 # Node.js v6
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs npm build-essential
+curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+sudo apt-get install -y nodejs build-essential
 
 # Dependencies
 sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
@@ -75,10 +75,10 @@ Launch Unit tests as sudo:
 sudo npm test
 ```
 
-Launch E2E tests as sudo:
+Launch services' tests as sudo:
 
 ```shell
-sudo npm run test-e2e
+sudo npm run test-service
 ```
  
 
@@ -131,7 +131,7 @@ The execution development
 
 - Options: `NODE_ENV`
 - Type: `String`
-- Values: `debug` | `production` | `test`
+- Values: `production` | `test`
 - Default: `production`
 
 Example: 
