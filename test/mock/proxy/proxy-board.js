@@ -9,9 +9,6 @@ const Mocker = require('../../../lib/module/mocker');
 const noop = require('../../../lib/module/noop');
 
 
-//////////////////////////////////////
-//////////////////////////////////////
-
 module.exports = Mocker.create(EventEmitter, {
 	analogWrite: noop,
 	close: noop,

@@ -11,7 +11,7 @@ const promisify = require('@jdes/promisify');
 const Catcher = require('@jdes/catcher');
 const {Pin} = require('johnny-five');
 const ProxyBoard = require('../../mock/proxy/proxy-board');
-const EngineController = require('../../../lib/service/engine-controller');
+const EngineController = require('../../../lib/service/five-engine-controller');
 
 describe('EngineController', () => {
 	const channel = 7;
@@ -35,7 +35,7 @@ describe('EngineController', () => {
 
 		values.forEach((args) => {
 			it(`should set the value to ${args.in}`, () => {
-				const mock = sinon.mock(controller._gpio);
+				const mock = sinon.mock(controller._board);
 				const expectations = mock.expects('analogWrite')
 					.once()
 					.withArgs(channel, args.out);
@@ -61,7 +61,7 @@ describe('EngineController', () => {
 
 	describe('Stop', () => {
 		it('should be stopped', () => {
-			const mock = sinon.mock(controller._gpio);
+			const mock = sinon.mock(controller._board);
 			const expectations = mock.expects('analogWrite')
 				.once()
 				.withArgs(channel, 0);

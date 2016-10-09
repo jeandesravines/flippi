@@ -6,7 +6,6 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const environments = require('../../../lib/constant/environments');
 const devices = require('../../../lib/constant/devices');
 
 describe('Configuration', () => {
@@ -17,7 +16,7 @@ describe('Configuration', () => {
 		function clear() {
 			delete require.cache[require.resolve(configurationFilename)];
 		}
-		
+
 		function getConfiguration() {
 			return require(configurationFilename);
 		}
@@ -31,22 +30,12 @@ describe('Configuration', () => {
 			Object.assign(process.env, processEnvVariables);
 		});
 
-		it('should be the default configuration without NODE_ENV', () => {
-			process.env.NODE_ENV = '';
-
-			const content = getConfiguration();
-			const environment = content.environment;
-			const production = environments.production
-
-			expect(environment).to.be.deep.equal(production);
-		});
-
 		it('should be customized', () => {
 			process.env.FLIPPI_CHANNEL_MOTOR_1 = 'TEST_CHANNEL_MOTOR_1';
 			process.env.FLIPPI_DEVICE = devices.five;
 			process.env.FLIPPI_NAME = 'Hello';
 			process.env.FLIPPI_PIN = 'TEST_PIN';
-			process.env.NODE_ENV = environments.debug;
+			process.env.DEBUG = '*';
 
 			expect(getConfiguration()).to.be.deep.equal({
 				channels: {
@@ -54,7 +43,6 @@ describe('Configuration', () => {
 				},
 				debug: true,
 				device: process.env.FLIPPI_DEVICE,
-				environment: process.env.NODE_ENV,
 				name: process.env.FLIPPI_NAME,
 				pin: process.env.FLIPPI_PIN
 			});
