@@ -3,7 +3,8 @@ language: node_js
 node_js:
     - "6"
 install:
-    - apt-get install -y bluetooth bluez libbluetooth-dev libudev-dev
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq bluetooth bluez libbluetooth-dev libudev-dev
     - npm install
 test:
     - npm test
