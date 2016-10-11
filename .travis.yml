@@ -3,9 +3,8 @@ language: node_js
 node_js:
     - "6"
 install:
-    - curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
-    - sudo apt-get install -qq nodejs build-essential
-    - sudo apt-get install -qq make bluetooth bluez libbluetooth-dev libudev-dev
+    - sudo apt-get install -qq gcc-5 g++-5
+    - sudo apt-get install -qq bluetooth bluez libbluetooth-dev libudev-dev
     - npm install -g npm node-gyp
     - npm install
 test:
