@@ -5,8 +5,7 @@
 'use strict';
 
 const {EventEmitter} = require('events');
-const Mocker = require('../../../lib/module/mocker');
-
+const Mocker = require('../../../lib/helper/mocker');
 
 module.exports = Mocker.create(EventEmitter, {
 	setValue: () => Promise.resolve(),

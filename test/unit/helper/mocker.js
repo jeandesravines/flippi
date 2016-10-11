@@ -7,7 +7,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {EventEmitter} = require('events');
-const Mocker = require('../../../lib/module/mocker');
+const Mocker = require('../../../lib/helper/mocker');
 
 describe('Mocker', () => {
 	describe('Create', () => {

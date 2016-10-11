@@ -111,7 +111,7 @@ The used compatible gpio's device.
 - Options: `FLIPPI_DEVICE`
 - Type: `String`
 - Values: `gpio` | `five`
-- Default: `gpio`
+- Default: `five`
 
 Example: 
 
@@ -127,17 +127,17 @@ sudo FLIPPI_DEVICE=five npm start
 
 ### Environment
 
-The execution development
+Indicate if the application use the module `debug`.
 
-- Options: `NODE_ENV`
-- Type: `String`
-- Values: `production` | `test`
-- Default: `production`
+- Options: `DEBUG`
+- Type: `String` | `undefined`
+- Values: `flippi:*` | `*` | `undefined`
+- Default: `undefined`
 
 Example: 
 
 ```shell
-sudo NODE_ENV=debug npm start
+sudo DEBUG=* npm start
 ```
 
 ### Name

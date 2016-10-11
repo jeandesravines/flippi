@@ -9,14 +9,14 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const uuids = require('../../../lib/constant/uuids');
 const Flippi = require('../../../lib/service/flippi');
-const ProxyBleio = require('../../mock/proxy/proxy-bleio');
+const ProxyManager = require('../../mock/proxy/proxy-manager');
 const ProxyEngineController = require('../../mock/proxy/proxy-engine-controller');
 
 describe('Flippi', () => {
 	let flippi;
 
 	beforeEach('Create', () => {
-		flippi = new Flippi(new ProxyBleio(), new ProxyEngineController());
+		flippi = new Flippi(new ProxyManager(), new ProxyEngineController());
 	});
 
 	describe('Update', () => {
@@ -25,25 +25,25 @@ describe('Flippi', () => {
 			const uuid = '1234';
 			const value = 0.5;
 
-			flippi._bleio.emit('updateValue', value, uuid);
+			flippi.manager.emit('updateValue', value, uuid);
 
 			expect(spy.withArgs(uuid, value).calledOnce);
 			spy.restore();
 		});
 
 		it('should handle onUpdateValue event and do nothing.', () => {
-			flippi._bleio.emit('updateValue', 'unknown', 0.5);
+			flippi.manager.emit('updateValue', 'unknown', 0.5);
 		});
 
 		it('should update the speed', () => {
 			const uuid = uuids.characteristics.speed;
 			const value = 0.5;
-			const mock = sinon.mock(flippi._engine);
+			const mock = sinon.mock(flippi.engineController);
 			const expectations = mock.expects('setValue')
 				.once()
 				.withArgs(value);
 
-			return Promise.resolve(flippi._bleio.emit('updateValue', value, uuid))
+			return Promise.resolve(flippi.manager.emit('updateValue', value, uuid))
 				.then(() => expectations.verify())
 				.then(() => mock.restore());
 		});
@@ -51,7 +51,7 @@ describe('Flippi', () => {
 
 	describe('Stop', () => {
 		it('should stop', () => {
-			const mock = sinon.mock(flippi._bleio);
+			const mock = sinon.mock(flippi.manager);
 			const expectations = mock.expects('stop')
 				.once();
 
@@ -65,7 +65,7 @@ describe('Flippi', () => {
 		it('should handle onReady event', () => {
 			const spy = sinon.spy(flippi, 'emit');
 
-			flippi._engine.emit('ready');
+			flippi.engineController.emit('ready');
 			expect(spy.calledOnce);
 			spy.restore();
 		});

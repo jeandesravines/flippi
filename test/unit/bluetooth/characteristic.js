@@ -6,16 +6,16 @@
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Characteristic = require('bleno/lib/characteristic');
+const Bleno = require('../../../lib/bluetooth/bleno');
 const Authenticator = require('../../../lib/helper/authenticator');
-const FlipPiCharacteristic = require('../../../lib/helper/flippi-characteristic');
+const Characteristic = require('../../../lib/bluetooth/characteristic');
 const uuids = require('../../../lib/constant/uuids');
 
-describe('FlipPiCharacteristic', () => {
+describe('Characteristic', () => {
 	let characteristic;
 
 	beforeEach('Create', () => {
-		characteristic = new FlipPiCharacteristic({
+		characteristic = new Characteristic({
 			uuid: uuids.characteristics.speed
 		}, new Authenticator('1234'));
 	});
@@ -27,7 +27,7 @@ describe('FlipPiCharacteristic', () => {
 	describe('Write', () => {
 		it('should write a Buffer', (done) => {
 			characteristic.emit('writeRequest', null, 0, false, (status) => {
-				expect(status).to.be.equal(Characteristic.RESULT_SUCCESS);
+				expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
 				done();
 			});
 		});
@@ -49,7 +49,7 @@ describe('FlipPiCharacteristic', () => {
 		it('should return a valid Buffer', (done) => {
 			characteristic.setValue('Hello');
 			characteristic.emit('readRequest', 0, (status, value) => {
-				expect(status).to.be.equal(Characteristic.RESULT_SUCCESS);
+				expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
 				expect(value.toString()).to.be.equal('Hello');
 				done();
 			});
