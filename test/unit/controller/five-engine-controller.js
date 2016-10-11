@@ -11,7 +11,7 @@ const promisify = require('@jdes/promisify');
 const Catcher = require('@jdes/catcher');
 const {Pin} = require('johnny-five');
 const ProxyBoard = require('../../mock/proxy/proxy-board');
-const EngineController = require('../../../lib/service/five-engine-controller');
+const EngineController = require('../../../lib/controller/five-engine-controller');
 
 describe('EngineController', () => {
 	const channel = 7;

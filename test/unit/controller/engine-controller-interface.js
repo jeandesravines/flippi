@@ -7,7 +7,7 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
-const EngineController = require('../../../lib/service/engine-controller-interface');
+const EngineController = require('../../../lib/controller/engine-controller-interface');
 
 describe('EngineController', () => {
 	const channel = 7;

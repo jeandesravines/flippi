@@ -33,11 +33,8 @@ It was tested on:
 ### Install the dependencies
 
 ```shell
-# Update
-sudo apt-get update
-
 # Node.js v6
-curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs build-essential
 
 # Dependencies
@@ -111,7 +108,7 @@ The used compatible gpio's device.
 - Options: `FLIPPI_DEVICE`
 - Type: `String`
 - Values: `gpio` | `five`
-- Default: `gpio`
+- Default: `five`
 
 Example: 
 
@@ -127,17 +124,17 @@ sudo FLIPPI_DEVICE=five npm start
 
 ### Environment
 
-The execution development
+Indicate if the application use the module `debug`.
 
-- Options: `NODE_ENV`
-- Type: `String`
-- Values: `production` | `test`
-- Default: `production`
+- Options: `DEBUG`
+- Type: `String` | `undefined`
+- Values: `flippi:*` | `*` | `undefined`
+- Default: `undefined`
 
 Example: 
 
 ```shell
-sudo NODE_ENV=debug npm start
+sudo DEBUG=* npm start
 ```
 
 ### Name

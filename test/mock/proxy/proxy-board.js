@@ -5,9 +5,8 @@
 'use strict';
 
 const {EventEmitter} = require('events');
-const Mocker = require('../../../lib/module/mocker');
-const noop = require('../../../lib/module/noop');
-
+const Mocker = require('../../../lib/helper/mocker');
+const noop = require('../../../lib/helper/noop');
 
 module.exports = Mocker.create(EventEmitter, {
 	analogWrite: noop,

@@ -2,6 +2,14 @@ sudo: required
 language: node_js
 node_js:
     - "6"
+env:
+  - CXX=g++-5
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
 test:
     - npm test
 after_success: 

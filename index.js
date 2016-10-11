@@ -7,11 +7,11 @@
 const configuration = require('./lib/configuration/configuration');
 const devices = require('./lib/constant/devices');
 const segfaultHandler = require('segfault-handler');
-const FlipPi = require('./lib/service/flippi');
-const Bleio = require('./lib/service/bleio');
+const Manager = require('./lib/bluetooth/manager');
 const Authenticator = require('./lib/helper/authenticator');
-const FiveEngineController = require('./lib/service/five-engine-controller');
-const GpioEngineController = require('./lib/service/gpio-engine-controller');
+const FlipPi = require('./lib/service/flippi');
+const FiveEngineController = require('./lib/controller/five-engine-controller');
+const GpioEngineController = require('./lib/controller/gpio-engine-controller');
 
 const CHANNEL_MOTOR_1 = configuration.channels.motor1;
 const PIN = configuration.pin;
@@ -34,7 +34,7 @@ process.on('exit', () => {
 //////////////////////////////////////////////////
 
 const EngineClassController = DEVICE === devices.gpio ? GpioEngineController : FiveEngineController;
-const engineController = new EngineClassController(CHANNEL_MOTOR_1);
-const bleio = new Bleio(NAME, new Authenticator(PIN));
+const controller = new EngineClassController(CHANNEL_MOTOR_1);
+const manager = new Manager(NAME, new Authenticator(PIN));
 
-flippi = new FlipPi(bleio, engineController);
+flippi = new FlipPi(manager, controller);

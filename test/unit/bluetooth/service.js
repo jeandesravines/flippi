@@ -7,14 +7,14 @@
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const Authenticator = require('../../../lib/helper/authenticator');
-const FlipPiService = require('../../../lib/helper/flippi-service');
+const Service = require('../../../lib/bluetooth/service');
 const uuids = require('../../../lib/constant/uuids');
 
-describe('FlipPiService', () => {
+describe('Service', () => {
 	let service;
 
 	beforeEach('Create', () => {
-		service = new FlipPiService(uuids, new Authenticator('1234'));
+		service = new Service(uuids, new Authenticator('1234'));
 	});
 
 	afterEach('Delete', () => {
@@ -22,7 +22,7 @@ describe('FlipPiService', () => {
 	});
 
 	describe('Update', () => {
-		const local = new FlipPiService(uuids, new Authenticator('1234'));
+		const local = new Service(uuids, new Authenticator('1234'));
 
 		local.characteristics.forEach((characteristic) => {
 			it('should emit an event on "updateValue', (done) => {
