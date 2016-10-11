@@ -33,9 +33,6 @@ It was tested on:
 ### Install the dependencies
 
 ```shell
-# Update
-sudo apt-get update
-
 # Node.js v6
 curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 sudo apt-get install -y nodejs build-essential
