@@ -3,7 +3,7 @@ language: node_js
 node_js:
     - "6"
 install:
-    - sudo apt-get install -qq gcc-5 g++-5
+    - sudo apt-get install -qq gcc-4.8 g++-4.8
     - sudo apt-get install -qq bluetooth bluez libbluetooth-dev libudev-dev
     - npm install -g npm node-gyp
     - npm install
