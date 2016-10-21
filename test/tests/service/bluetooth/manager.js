@@ -7,10 +7,10 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
-const ProxyBleno = require('../../mock/proxy/proxy-bleno');
-const Manager = require('../../../lib/bluetooth/manager');
-const Authenticator = require('../../../lib/helper/authenticator');
-const uuids = require('../../../lib/constant/uuids');
+const ProxyBleno = require('../../../mock/proxy/proxy-bleno');
+const Manager = require('../../../../lib/bluetooth/manager');
+const Authenticator = require('../../../../lib/helper/authenticator');
+const uuids = require('../../../../lib/constant/uuids');
 
 describe('Manager', () => {
 	let manager;

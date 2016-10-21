@@ -7,10 +7,10 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
-const uuids = require('../../../lib/constant/uuids');
-const Flippi = require('../../../lib/service/flippi');
-const ProxyManager = require('../../mock/proxy/proxy-manager');
-const ProxyEngineController = require('../../mock/proxy/proxy-engine-controller');
+const uuids = require('../../../../lib/constant/uuids');
+const Flippi = require('../../../../lib/service/flippi');
+const ProxyManager = require('../../../mock/proxy/proxy-manager');
+const ProxyEngineController = require('../../../mock/proxy/proxy-engine-controller');
 
 describe('Flippi', () => {
 	let flippi;

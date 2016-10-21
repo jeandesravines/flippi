@@ -6,9 +6,9 @@
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Authenticator = require('../../../lib/helper/authenticator');
-const Service = require('../../../lib/bluetooth/service');
-const uuids = require('../../../lib/constant/uuids');
+const Authenticator = require('../../../../lib/helper/authenticator');
+const Service = require('../../../../lib/bluetooth/service');
+const uuids = require('../../../../lib/constant/uuids');
 
 describe('Service', () => {
 	let service;

@@ -10,8 +10,8 @@ const sinon = require('sinon');
 const promisify = require('@jdes/promisify');
 const Catcher = require('@jdes/catcher');
 const Gpio = require('@jdes/gpio');
-const ProxyGpio = require('../../mock/proxy/proxy-gpio');
-const GpioEngineController = require('../../../lib/controller/gpio-engine-controller');
+const ProxyGpio = require('../../../mock/proxy/proxy-gpio');
+const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('GpioEngineController', () => {
 	const channel = 7;

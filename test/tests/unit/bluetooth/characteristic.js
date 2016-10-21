@@ -6,10 +6,10 @@
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Bleno = require('../../../lib/bluetooth/bleno');
-const Authenticator = require('../../../lib/helper/authenticator');
-const Characteristic = require('../../../lib/bluetooth/characteristic');
-const uuids = require('../../../lib/constant/uuids');
+const Bleno = require('../../../../lib/bluetooth/bleno');
+const Authenticator = require('../../../../lib/helper/authenticator');
+const Characteristic = require('../../../../lib/bluetooth/characteristic');
+const uuids = require('../../../../lib/constant/uuids');
 
 describe('Characteristic', () => {
 	let characteristic;

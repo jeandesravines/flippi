@@ -12,9 +12,10 @@ describe('Debug', () => {
 	describe('Module', () => {
 		const modules = ['debug'];
 		const environment = Object.assign({}, process.env);
+		const dirname = path.join('..', '..', '..', '..', 'lib');
 		const paths = {
-			configuration: path.join('..', '..', '..', 'lib', 'configuration', 'configuration'),
-			debug: path.join('..', '..', '..', 'lib', 'helper', 'debug')
+			configuration: path.join(dirname, 'configuration', 'configuration'),
+			debug: path.join(dirname, 'helper', 'debug')
 		};
 
 		function clear() {
