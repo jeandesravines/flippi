@@ -92,7 +92,7 @@ describe('SpeedCharacteristic', () => {
 				setTimeout(() => {
 					expect(characteristic.value.toString()).to.be.equal('0');
 					done();
-				}, 1000)
+				}, 1000);
 			});
 		});
 	});

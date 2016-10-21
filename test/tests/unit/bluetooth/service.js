@@ -4,29 +4,19 @@
 
 'use strict';
 
-const {beforeEach, afterEach, describe, it} = require('mocha');
+const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const Authenticator = require('../../../../lib/helper/authenticator');
 const Service = require('../../../../lib/bluetooth/service');
 const uuids = require('../../../../lib/constant/uuids');
 
 describe('Service', () => {
-	let service;
-
-	beforeEach('Create', () => {
-		service = new Service(uuids, new Authenticator('1234'));
-	});
-
-	afterEach('Delete', () => {
-		service = null;
-	});
-
 	describe('Update', () => {
-		const local = new Service(uuids, new Authenticator('1234'));
+		const service = new Service(uuids, new Authenticator('1234'));
 
-		local.characteristics.forEach((characteristic) => {
+		service.characteristics.forEach((characteristic) => {
 			it('should emit an event on "updateValue', (done) => {
-				local.once('updateValue', (value, source) => {
+				service.once('updateValue', (value, source) => {
 					expect(value).to.be.a('string');
 					expect(source).to.be.equal(characteristic);
 					done();
@@ -35,5 +25,5 @@ describe('Service', () => {
 				characteristic.setValue('Hello');
 			});
 		});
-	})
+	});
 });

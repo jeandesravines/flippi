@@ -23,7 +23,7 @@ describe('Manager', () => {
 
 	describe('Create', () => {
 		it('should create an instance. (Coverage)', () => {
-			new Manager(title, authenticator);
+			manager = new Manager(title, authenticator);
 		});
 	});
 

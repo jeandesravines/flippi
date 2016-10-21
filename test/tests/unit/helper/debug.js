@@ -2,6 +2,8 @@
  * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
  */
 
+/* eslint-disable global-require */
+
 'use strict';
 
 const {describe, it} = require('mocha');
@@ -18,15 +20,18 @@ describe('Debug', () => {
 			debug: path.join(dirname, 'helper', 'debug')
 		};
 
-		function clear() {
+		/**
+		 * Clear required element from the package manager's cache
+		 */
+		const clear = () => {
 			modules.forEach((module) => {
-				delete require.cache[require.resolve(module)];
+				Reflect.deleteProperty(require.cache, require.resolve(module));
 			});
 
 			Object.keys(paths).forEach((key) => {
-				delete require.cache[require.resolve(paths[key])];
+				Reflect.deleteProperty(require.cache, require.resolve(paths[key]));
 			});
-		}
+		};
 
 		beforeEach('Delete require\' cache', () => {
 			clear();

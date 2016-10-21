@@ -7,7 +7,6 @@
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
-const promisify = require('@jdes/promisify');
 const Catcher = require('@jdes/catcher');
 const Gpio = require('@jdes/gpio');
 const ProxyGpio = require('../../../mock/proxy/proxy-gpio');

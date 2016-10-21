@@ -2,6 +2,8 @@
  * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
  */
 
+/* eslint-disable global-require */
+
 'use strict';
 
 const {describe, it} = require('mocha');
@@ -13,13 +15,20 @@ describe('Configuration', () => {
 		const configurationFilename = '../../../../lib/configuration/configuration';
 		const processEnvVariables = Object.assign({}, process.env);
 
-		function clear() {
-			delete require.cache[require.resolve(configurationFilename)];
-		}
+		/**
+		 * Remove the configuration from the package manager's cache
+		 */
+		const clear = () => {
+			Reflect.deleteProperty(require.cache, require.resolve(configurationFilename));
+		};
 
-		function getConfiguration() {
+		/**
+		 * Get the global configuration
+		 * @returns {Object} the global configuration
+		 */
+		const getConfiguration = () => {
 			return require(configurationFilename);
-		}
+		};
 
 		beforeEach('Delete require\'s cache', () => {
 			clear();
