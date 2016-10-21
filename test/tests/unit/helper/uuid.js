@@ -6,7 +6,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const UUID = require('../../../lib/helper/uuid');
+const UUID = require('../../../../lib/helper/uuid');
 
 describe('UUID', () => {
 	describe('Conversion', () => {

@@ -6,7 +6,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const uuids = require('../../../lib/constant/uuids');
+const uuids = require('../../../../lib/constant/uuids');
 
 describe('uuids', () => {
 	describe('Content', () => {

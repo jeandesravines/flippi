@@ -41,6 +41,7 @@ sudo apt-get install -y nodejs build-essential
 sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
 
 # Config
+sudo systemctl disable bluetooth
 sudo 'Flippi' > /etc/hostname
 ```
 
@@ -75,7 +76,7 @@ sudo npm test
 Launch services' tests as sudo:
 
 ```shell
-sudo npm run test-service
+sudo npm run test:service
 ```
  
 
@@ -89,16 +90,16 @@ GPIO channels' settings.
 
 #### Motor 1
 
-The GPIO channel for the motor 1.
+The GPIO channel for the first motor.
 
-- Options: `FLIPPI_CHANNEL_MOTOR_1`
+- Options: `FLIPPI_CHANNEL_0`
 - Type: `Number`
 - Default: `5`
 
 Example: 
 
 ```shell
-sudo FLIPPI_CHANNEL_MOTOR_1=7 npm start
+sudo FLIPPI_CHANNEL_0=7 npm start
 ```
 
 ### Device
@@ -134,7 +135,7 @@ Indicate if the application use the module `debug`.
 Example: 
 
 ```shell
-sudo DEBUG=* npm start
+sudo DEBUG=flippi:* npm start
 ```
 
 ### Name

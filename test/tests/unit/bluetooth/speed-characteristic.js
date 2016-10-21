@@ -6,9 +6,9 @@
 
 const {beforeEach, afterEach, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Authenticator = require('../../../lib/helper/authenticator');
-const SpeedCharacteristic = require('../../../lib/bluetooth/speed-characteristic');
-const uuids = require('../../../lib/constant/uuids');
+const Authenticator = require('../../../../lib/helper/authenticator');
+const SpeedCharacteristic = require('../../../../lib/bluetooth/speed-characteristic');
+const uuids = require('../../../../lib/constant/uuids');
 
 describe('SpeedCharacteristic', () => {
 	const pin = '1234';
@@ -92,7 +92,7 @@ describe('SpeedCharacteristic', () => {
 				setTimeout(() => {
 					expect(characteristic.value.toString()).to.be.equal('0');
 					done();
-				}, 1000)
+				}, 1000);
 			});
 		});
 	});
