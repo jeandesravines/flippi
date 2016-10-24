@@ -6,17 +6,17 @@
     "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
     "scripts": {
         "clean": "rm -rf coverage npm-debug.log* 2> /dev/null",
+        "commit": "commit-wizard",
         "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
         "lint": "node_modules/.bin/eslint lib test",
         "start": "node index.js",
-        "test": "npm run test:unit && npm run lint",
+        "test": "npm run test:unit",
         "test:service": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit test/tests/service",
         "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit",
+        "prestart": "npm run clean",
         "pretest": "npm run clean",
         "pretest:service": "npm run pretest",
-        "pretest:unit": "npm run pretest",
-        "prestart": "npm run clean",
-        "commit": "commit-wizard"
+        "pretest:unit": "npm run pretest"
     },
     "main": "index.js",
     "repository": {
@@ -46,6 +46,7 @@
         "chai": "^3.5.0",
         "coveralls": "^2.11.11",
         "eslint": "^3.8.1",
+        "eslint-config-google": "^0.7.0",
         "istanbul": "^0.4.2",
         "mocha": "^3.0.1",
         "pre-git": "^3.10.0",
@@ -64,7 +65,7 @@
             "commit-msg": "simple",
             "post-checkout": "sudo npm run clean",
             "post-commit": "git status",
-            "pre-commit": "sudo npm run lint",
+            "pre-commit": "npm run lint",
             "pre-push": "sudo npm run test"
         }
     }
