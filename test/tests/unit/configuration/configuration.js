@@ -24,7 +24,7 @@ describe('Configuration', () => {
 
 		/**
 		 * Get the global configuration
-		 * @returns {Object} the global configuration
+		 * @return {Object} the global configuration
 		 */
 		const getConfiguration = () => {
 			return require(configurationFilename);
@@ -48,12 +48,12 @@ describe('Configuration', () => {
 
 			expect(getConfiguration()).to.be.deep.equal({
 				channels: [
-					Number.parseInt(process.env.FLIPPI_CHANNEL_0, 10)
+					Number.parseInt(process.env.FLIPPI_CHANNEL_0, 10),
 				],
 				debug: true,
 				device: process.env.FLIPPI_DEVICE,
 				name: process.env.FLIPPI_NAME,
-				pin: process.env.FLIPPI_PIN
+				pin: process.env.FLIPPI_PIN,
 			});
 		});
 	});

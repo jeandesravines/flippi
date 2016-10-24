@@ -19,7 +19,7 @@ describe('Mocker', () => {
 
 		it('should be an overriden child of EventEmitter', () => {
 			const mocked = new (Mocker.create(EventEmitter, {
-				sayHello: () => 'Hello'
+				sayHello: () => 'Hello',
 			}))();
 
 			expect(mocked).to.be.instanceOf(EventEmitter);

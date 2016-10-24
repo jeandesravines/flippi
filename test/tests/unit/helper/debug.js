@@ -17,7 +17,7 @@ describe('Debug', () => {
 		const dirname = path.join('..', '..', '..', '..', 'lib');
 		const paths = {
 			configuration: path.join(dirname, 'configuration', 'configuration'),
-			debug: path.join(dirname, 'helper', 'debug')
+			debug: path.join(dirname, 'helper', 'debug'),
 		};
 
 		/**

@@ -7,8 +7,9 @@
 const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/helper/mocker');
 
+
 module.exports = Mocker.create(EventEmitter, {
 	setAnalogValue: () => Promise.resolve(),
 	close: () => Promise.resolve(),
-	open: (channel) => channel >= 0 ? Promise.resolve() : Promise.reject(new Error('UnknownChannelError'))
+	open: (channel) => channel >= 0 ? Promise.resolve() : Promise.reject(new Error('UnknownChannelError')),
 });

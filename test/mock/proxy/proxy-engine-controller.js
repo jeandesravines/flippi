@@ -7,7 +7,8 @@
 const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/helper/mocker');
 
+
 module.exports = Mocker.create(EventEmitter, {
 	setValue: () => Promise.resolve(),
-	stop: () => Promise.resolve()
+	stop: () => Promise.resolve(),
 });
