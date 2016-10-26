@@ -9,8 +9,13 @@ const Mocker = require('../../../lib/helper/mocker');
 const noop = require('../../../lib/helper/noop');
 
 
+/**
+ * ProxyBoard
+ * @class ProxyBoard
+ * @extends {EventEmitter}
+ */
 module.exports = Mocker.create(EventEmitter, {
-	analogWrite: noop,
-	close: noop,
-	pinMode: noop,
+  analogWrite: noop,
+  close: noop,
+  pinMode: noop,
 });

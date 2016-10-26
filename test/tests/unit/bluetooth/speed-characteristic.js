@@ -11,92 +11,92 @@ const SpeedCharacteristic = require('../../../../lib/bluetooth/speed-characteris
 const uuids = require('../../../../lib/constant/uuids');
 
 describe('SpeedCharacteristic', () => {
-	const pin = '1234';
-	let characteristic;
+  const pin = '1234';
+  let characteristic;
 
-	beforeEach('Create', () => {
-		const uuid = uuids.characteristics.speed;
-		const authenticator = new Authenticator(pin);
+  beforeEach('Create', () => {
+    const uuid = uuids.characteristics.speed;
+    const authenticator = new Authenticator(pin);
 
-		characteristic = new SpeedCharacteristic(uuid, authenticator);
-	});
+    characteristic = new SpeedCharacteristic(uuid, authenticator);
+  });
 
-	afterEach('Delete', () => {
-		characteristic = null;
-	});
+  afterEach('Delete', () => {
+    characteristic = null;
+  });
 
-	describe('Init', () => {
-		it('should set the value to 0', (done) => {
-			characteristic.emit('readRequest', 0, (status, value) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
-				expect(value.toString()).to.be.equal('0');
-				done();
-			});
-		});
-	});
+  describe('Init', () => {
+    it('should set the value to 0', (done) => {
+      characteristic.emit('readRequest', 0, (status, value) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
+        expect(value.toString()).to.be.equal('0');
+        done();
+      });
+    });
+  });
 
-	describe('Update', () => {
-		it('should set a value and be notified', (done) => {
-			characteristic.on('updateValue', (value) => {
-				expect(Number.parseFloat(value)).to.be.equal(0.75);
-				done();
-			});
+  describe('Update', () => {
+    it('should set a value and be notified', (done) => {
+      characteristic.on('updateValue', (value) => {
+        expect(Number.parseFloat(value)).to.be.equal(0.75);
+        done();
+      });
 
-			characteristic.setValue(0.75);
-		});
-	});
+      characteristic.setValue(0.75);
+    });
+  });
 
-	describe('Read', () => {
-		it('should be notified on readRequest after write', (done) => {
-			characteristic.setValue(0.75);
-			characteristic.emit('readRequest', 0, (status, value) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
-				expect(value.toString()).to.be.equal('0.75');
-				done();
-			});
-		});
-	});
+  describe('Read', () => {
+    it('should be notified on readRequest after write', (done) => {
+      characteristic.setValue(0.75);
+      characteristic.emit('readRequest', 0, (status, value) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
+        expect(value.toString()).to.be.equal('0.75');
+        done();
+      });
+    });
+  });
 
-	describe('Write', () => {
-		it('should be rejected because of wrong credentials', (done) => {
-			characteristic.emit('writeRequest', null, 0, true, (status) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
-				done();
-			});
-		});
+  describe('Write', () => {
+    it('should be rejected because of wrong credentials', (done) => {
+      characteristic.emit('writeRequest', null, 0, true, (status) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
+        done();
+      });
+    });
 
-		it('should be rejected because of delay', (done) => {
-			const data = JSON.stringify({pin: pin, value: 0.75});
-			const buffer = Buffer.from(data);
+    it('should be rejected because of delay', (done) => {
+      const data = JSON.stringify({pin: pin, value: 0.75});
+      const buffer = Buffer.from(data);
 
-			characteristic.emit('writeRequest', buffer, 0, true, (status) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
+      characteristic.emit('writeRequest', buffer, 0, true, (status) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
 
-				characteristic.emit('writeRequest', buffer, 0, true, (status) => {
-					expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
-					done();
-				});
-			});
-		});
+        characteristic.emit('writeRequest', buffer, 0, true, (status) => {
+          expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
+          done();
+        });
+      });
+    });
 
-		it('should be rejected because of wrong value', (done) => {
-			characteristic.emit('writeRequest', Buffer.from('null'), 0, true, (status) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
-				done();
-			});
-		});
+    it('should be rejected because of wrong value', (done) => {
+      characteristic.emit('writeRequest', Buffer.from('null'), 0, true, (status) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_UNLIKELY_ERROR);
+        done();
+      });
+    });
 
-		it('should writes a value and wait until it reset', (done) => {
-			const data = JSON.stringify({pin: pin, value: 0.75});
+    it('should writes a value and wait until it reset', (done) => {
+      const data = JSON.stringify({pin: pin, value: 0.75});
 
-			characteristic.emit('writeRequest', Buffer.from(data), 0, true, (status) => {
-				expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
+      characteristic.emit('writeRequest', Buffer.from(data), 0, true, (status) => {
+        expect(status).to.be.equal(SpeedCharacteristic.RESULT_SUCCESS);
 
-				setTimeout(() => {
-					expect(characteristic.value.toString()).to.be.equal('0');
-					done();
-				}, 1000);
-			});
-		});
-	});
+        setTimeout(() => {
+          expect(characteristic.value.toString()).to.be.equal('0');
+          done();
+        }, 1000);
+      });
+    });
+  });
 });

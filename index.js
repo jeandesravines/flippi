@@ -4,6 +4,7 @@
 
 'use strict';
 
+const debug = require('./lib/helper/debug');
 const configuration = require('./lib/configuration/configuration');
 const devices = require('./lib/constant/devices');
 const segfaultHandler = require('segfault-handler');
@@ -13,28 +14,33 @@ const FlipPi = require('./lib/service/flippi');
 const FiveEngineController = require('./lib/controller/five-engine-controller');
 const GpioEngineController = require('./lib/controller/gpio-engine-controller');
 
-const CHANNEL_MOTOR_1 = configuration.channels.motor1;
+const CHANNEL_0 = configuration.channels[0];
 const PIN = configuration.pin;
 const DEVICE = configuration.device;
 const NAME = configuration.name;
 
 let flippi;
 
-///////////////////////////////////////////////
-///////////////////////////////////////////////
+
+/* ****************************************** */
+/* ****************************************** */
 
 segfaultHandler.registerHandler('');
+debug(configuration);
+
 process.on('exit', () => {
-	if (flippi) {
-		flippi.stop();
-	}
+  if (flippi) {
+    flippi.stop();
+  }
 });
 
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
 
-const EngineClassController = DEVICE === devices.gpio ? GpioEngineController : FiveEngineController;
-const controller = new EngineClassController(CHANNEL_MOTOR_1);
+/* ****************************************** */
+/* ****************************************** */
+
+const gpio = DEVICE === devices.gpio;
+const EngineController = gpio ? GpioEngineController : FiveEngineController;
+const controller = new EngineController(CHANNEL_0);
 const manager = new Manager(NAME, new Authenticator(PIN));
 
 flippi = new FlipPi(manager, controller);

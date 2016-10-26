@@ -1,72 +1,72 @@
 {
-    "name": "@jdes/flippi",
-    "private": true,
-    "version": "1.0.0",
-    "description": "Skateboard Bluetooth Low Energy (BLE) controller.",
-    "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
-    "scripts": {
-        "clean": "rm -rf coverage npm-debug.log* 2> /dev/null",
-        "commit": "commit-wizard",
-        "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-        "lint": "node_modules/.bin/eslint lib test",
-        "start": "node index.js",
-        "test": "npm run test:unit",
-        "test:service": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit test/tests/service",
-        "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit",
-        "prestart": "npm run clean",
-        "pretest": "npm run clean",
-        "pretest:service": "npm run pretest",
-        "pretest:unit": "npm run pretest"
-    },
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jeandesravines/flippi.git"
-    },
-    "bugs": {
-        "url": "https://github.com/jeandesravines/flippi/issues"
-    },
-    "keywords": [
-        "es6",
-        "raspberry",
-        "pi",
-        "bluetooth",
-        "motor"
-    ],
-    "dependencies": {
-        "@jdes/catcher": "^2.0.0",
-        "@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
-        "@jdes/mutex": "^1.0.0",
-        "@jdes/promisify": "^1.0.0",
-        "bleno": "^0.4.0",
-        "debug": "^2.2.0",
-        "johnny-five": "^0.10.0"
-    },
-    "devDependencies": {
-        "chai": "^3.5.0",
-        "coveralls": "^2.11.11",
-        "eslint": "^3.8.1",
-        "eslint-config-google": "^0.7.0",
-        "istanbul": "^0.4.2",
-        "mocha": "^3.0.1",
-        "pre-git": "^3.10.0",
-        "sinon": "^1.17.5"
-    },
-    "optionalDependencies": {
-        "segfault-handler": "^1.0.0"
-    },
-    "homepage": "https://github.com/jeandesravines/flippi",
-    "license": "MIT",
-    "engines": {
-        "node": ">=6.0.0"
-    },
-    "config": {
-        "pre-git": {
-            "commit-msg": "simple",
-            "post-checkout": "sudo npm run clean && npm install",
-            "post-commit": "git status",
-            "pre-commit": "npm run --silent lint",
-            "pre-push": "sudo npm --silent run test"
-        }
+  "name": "@jdes/flippi",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Skateboard Bluetooth Low Energy (BLE) controller.",
+  "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
+  "scripts": {
+    "clean": "rm -rf coverage npm-debug.log* 2> /dev/null",
+    "commit": "commit-wizard",
+    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
+    "lint": "node_modules/.bin/eslint lib test",
+    "start": "node index.js",
+    "test": "npm run test:unit",
+    "test:service": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit test/tests/service",
+    "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit",
+    "prestart": "npm run clean",
+    "pretest": "npm run clean",
+    "pretest:service": "npm run pretest",
+    "pretest:unit": "npm run pretest"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeandesravines/flippi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jeandesravines/flippi/issues"
+  },
+  "keywords": [
+    "es6",
+    "raspberry",
+    "pi",
+    "bluetooth",
+    "motor"
+  ],
+  "dependencies": {
+    "@jdes/catcher": "^2.0.0",
+    "@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
+    "@jdes/mutex": "^1.0.0",
+    "@jdes/promisify": "^1.0.0",
+    "bleno": "^0.4.0",
+    "debug": "^2.2.0",
+    "johnny-five": "^0.10.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.11",
+    "eslint": "^3.8.1",
+    "eslint-config-google": "^0.7.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^3.0.1",
+    "pre-git": "^3.10.0",
+    "sinon": "^1.17.5"
+  },
+  "optionalDependencies": {
+    "segfault-handler": "^1.0.0"
+  },
+  "homepage": "https://github.com/jeandesravines/flippi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "post-checkout": "sudo npm run clean && npm install",
+      "post-commit": "git status",
+      "pre-commit": "npm run --silent lint",
+      "pre-push": "sudo npm --silent run test"
     }
+  }
 }

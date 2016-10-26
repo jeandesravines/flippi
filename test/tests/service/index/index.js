@@ -9,14 +9,14 @@ const {expect} = require('chai');
 const exec = require('child_process').exec;
 
 describe('index.js', () => {
-	it('exec "npm start"', (done) => {
-		const child = exec('npm start');
+  it('exec "npm start"', (done) => {
+    const child = exec('npm start');
 
-		child.on('exit', (code) => {
-			expect(code).to.be.equal(null);
-			done();
-		});
+    child.on('exit', (code) => {
+      expect(code).to.be.equal(null);
+      done();
+    });
 
-		child.kill();
-	});
+    child.kill();
+  });
 });

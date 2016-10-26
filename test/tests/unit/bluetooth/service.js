@@ -11,19 +11,19 @@ const Service = require('../../../../lib/bluetooth/service');
 const uuids = require('../../../../lib/constant/uuids');
 
 describe('Service', () => {
-	describe('Update', () => {
-		const service = new Service(uuids, new Authenticator('1234'));
+  describe('Update', () => {
+    const service = new Service(uuids, new Authenticator('1234'));
 
-		service.characteristics.forEach((characteristic) => {
-			it('should emit an event on "updateValue', (done) => {
-				service.once('updateValue', (value, source) => {
-					expect(value).to.be.a('string');
-					expect(source).to.be.equal(characteristic);
-					done();
-				});
+    service.characteristics.forEach((characteristic) => {
+      it('should emit an event on "updateValue', (done) => {
+        service.once('updateValue', (value, source) => {
+          expect(value).to.be.a('string');
+          expect(source).to.be.equal(characteristic);
+          done();
+        });
 
-				characteristic.setValue('Hello');
-			});
-		});
-	});
+        characteristic.setValue('Hello');
+      });
+    });
+  });
 });

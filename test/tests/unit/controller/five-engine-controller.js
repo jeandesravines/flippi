@@ -13,61 +13,61 @@ const ProxyBoard = require('../../../mock/proxy/proxy-board');
 const EngineController = require('../../../../lib/controller/five-engine-controller');
 
 describe('EngineController', () => {
-	const channel = 7;
-	let controller;
+  const channel = 7;
+  let controller;
 
-	beforeEach('Create', () => {
-		controller = new EngineController(channel, new ProxyBoard());
-	});
+  beforeEach('Create', () => {
+    controller = new EngineController(channel, new ProxyBoard());
+  });
 
-	describe('Create', () => {
-		it('should eventually create an instance. (Coverage)', () => {
-			Catcher.resolve(() => new EngineController(channel));
-		});
-	});
+  describe('Create', () => {
+    it('should eventually create an instance. (Coverage)', () => {
+      Catcher.resolve(() => new EngineController(channel));
+    });
+  });
 
-	describe('Update', () => {
-		const values = [
-			{in: 0.5, out: 127},
-			{in: 0, out: 0},
-			{in: NaN, out: 0}];
+  describe('Update', () => {
+    const values = [
+      {in: 0.5, out: 127},
+      {in: 0, out: 0},
+      {in: NaN, out: 0}];
 
-		values.forEach((args) => {
-			it(`should set the value to ${args.in}`, () => {
-				const mock = sinon.mock(controller._board);
-				const expectations = mock.expects('analogWrite')
-					.once()
-					.withArgs(channel, args.out);
+    values.forEach((args) => {
+      it(`should set the value to ${args.in}`, () => {
+        const mock = sinon.mock(controller._board);
+        const expectations = mock.expects('analogWrite')
+            .once()
+            .withArgs(channel, args.out);
 
-				return controller.setValue(args.in)
-					.then(() => expectations.verify())
-					.then(() => mock.restore());
-			});
-		});
-	});
+        return controller.setValue(args.in)
+            .then(() => expectations.verify())
+            .then(() => mock.restore());
+      });
+    });
+  });
 
-	describe('Events', () => {
-		it('should init the pin', () => {
-			const board = new ProxyBoard();
-			const spy = sinon.spy(board, 'pinMode');
+  describe('Events', () => {
+    it('should init the pin', () => {
+      const board = new ProxyBoard();
+      const spy = sinon.spy(board, 'pinMode');
 
-			return Promise.resolve(new EngineController(channel, board))
-				.then(() => board.emit('ready'))
-				.then(() => expect(spy.withArgs(channel, Pin.PWM).calledOnce))
-				.then(() => spy.restore());
-		});
-	});
+      return Promise.resolve(new EngineController(channel, board))
+          .then(() => board.emit('ready'))
+          .then(() => expect(spy.withArgs(channel, Pin.PWM).calledOnce))
+          .then(() => spy.restore());
+    });
+  });
 
-	describe('Stop', () => {
-		it('should be stopped', () => {
-			const mock = sinon.mock(controller._board);
-			const expectations = mock.expects('analogWrite')
-				.once()
-				.withArgs(channel, 0);
+  describe('Stop', () => {
+    it('should be stopped', () => {
+      const mock = sinon.mock(controller._board);
+      const expectations = mock.expects('analogWrite')
+          .once()
+          .withArgs(channel, 0);
 
-			return controller.stop()
-				.then(() => expectations.verify())
-				.then(() => mock.restore());
-		});
-	});
+      return controller.stop()
+          .then(() => expectations.verify())
+          .then(() => mock.restore());
+    });
+  });
 });
