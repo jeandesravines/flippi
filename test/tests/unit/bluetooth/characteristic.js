@@ -16,7 +16,7 @@ describe('Characteristic', () => {
 
 	beforeEach('Create', () => {
 		characteristic = new Characteristic({
-			uuid: uuids.characteristics.speed
+			uuid: uuids.characteristics.speed,
 		}, new Authenticator('1234'));
 	});
 

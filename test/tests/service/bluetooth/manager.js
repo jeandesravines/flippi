@@ -66,10 +66,12 @@ describe('Manager', () => {
 	});
 
 	describe('Update', () => {
-		const manager = new Manager('Test', new Authenticator('1234'), new ProxyBleno());
+		const authenticator = new Authenticator('1234');
+		const bleno = new ProxyBleno();
+		const manager = new Manager('Test', authenticator, bleno);
 
 		manager._service.characteristics.forEach((characteristic) => {
-			it(`should subscribe to "updateValue" event on the ${characteristic.constructor.name}`, (done) => {
+			it(`should subscribe to "updateValue" event`, (done) => {
 				manager.once('updateValue', (value, uuids) => {
 					expect(value).to.be.a('string');
 					expect(uuids).to.be.equal(characteristic.uuid);
