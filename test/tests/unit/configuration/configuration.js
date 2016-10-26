@@ -2,8 +2,6 @@
  * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
  */
 
-/* eslint-disable global-require */
-
 'use strict';
 
 const {describe, it} = require('mocha');
