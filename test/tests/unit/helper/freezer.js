@@ -6,22 +6,29 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const freeze = require('../../../../lib/helper/freeze');
+const Freezer = require('../../../../lib/helper/freezer');
 
 describe('Freeze', () => {
   describe('deeply freeze', () => {
     const object = {
-      a: 'a',
-      b: {
-        c: 'c',
+      foo: 'bar',
+      baz: {
+        foo: 'bar',
       },
     };
 
     it('should deeply freeze an object', () => {
-      const frozen = freeze(object);
+      const frozen = Freezer.freeze(object);
+
+      expect(frozen).to.be.deep.equal({
+        foo: 'bar',
+        baz: {
+          foo: 'bar',
+        },
+      });
 
       expect(Object.isFrozen(frozen)).to.be.equal(true);
-      expect(Object.isFrozen(frozen.b)).to.be.equal(true);
+      expect(Object.isFrozen(frozen.foo)).to.be.equal(true);
     });
   });
 });

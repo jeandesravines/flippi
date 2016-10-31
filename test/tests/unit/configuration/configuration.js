@@ -7,12 +7,12 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const devices = require('../../../../lib/constant/devices');
-const freeze = require('../../../../lib/helper/freeze');
+const Freezer = require('../../../../lib/helper/freezer');
 
 describe('Configuration', () => {
   describe('content', () => {
     const configurationFilename = '../../../../lib/configuration/configuration';
-    const processEnvVariables = freeze(Object.assign({}, process.env));
+    const processEnvVariables = Freezer.freeze(Object.assign({}, process.env));
 
     /**
      * Remove the configuration from the package manager's cache

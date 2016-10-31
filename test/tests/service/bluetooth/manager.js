@@ -70,7 +70,7 @@ describe('Manager', () => {
     const bleno = new ProxyBleno();
     const manager = new Manager('Test', authenticator, bleno);
 
-    manager._service.characteristics.forEach((characteristic) => {
+    manager.service.characteristics.forEach((characteristic) => {
       it(`should subscribe to "updateValue" event`, (done) => {
         manager.once('updateValue', (value, uuid) => {
           expect(value).to.be.a('string');
