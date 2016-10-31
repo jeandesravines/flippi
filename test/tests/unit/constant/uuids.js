@@ -10,12 +10,15 @@ const uuids = require('../../../../lib/constant/uuids');
 
 describe('uuids', () => {
   describe('Content', () => {
-    it('should contains 2 characteristics', () => {
-      expect(Object.keys(uuids.characteristics)).length(1);
+    it('should contains 2 values', () => {
+      expect(Object.keys(uuids)).length(2);
     });
 
-    it('should contains 1 service', () => {
-      expect(Object.keys(uuids.services)).length(1);
+    it('should contains 2 valid uuids', () => {
+      Object.keys(uuids).forEach((key) => {
+        expect(uuids[key]).to.be.a('string');
+        expect(uuids[key].length).to.be.within(4, 35);
+      });
     });
   });
 });

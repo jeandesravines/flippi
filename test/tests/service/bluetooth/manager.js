@@ -47,7 +47,7 @@ describe('Manager', () => {
       const mock = sinon.mock(manager._manager);
       const expectations = mock.expects('startAdvertising')
           .once()
-          .withExactArgs(manager.title, [uuids.services.flippi]);
+          .withExactArgs(manager.title, [uuids.service]);
 
       manager._manager.emit('stateChange', 'poweredOn');
       expectations.verify();
@@ -72,9 +72,9 @@ describe('Manager', () => {
 
     manager._service.characteristics.forEach((characteristic) => {
       it(`should subscribe to "updateValue" event`, (done) => {
-        manager.once('updateValue', (value, uuids) => {
+        manager.once('updateValue', (value, uuid) => {
           expect(value).to.be.a('string');
-          expect(uuids).to.be.equal(characteristic.uuid);
+          expect(uuid).to.be.equal(characteristic.uuid);
           done();
         });
 

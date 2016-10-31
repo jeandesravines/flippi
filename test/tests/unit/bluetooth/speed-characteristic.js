@@ -15,7 +15,7 @@ describe('SpeedCharacteristic', () => {
   let characteristic;
 
   beforeEach('Create', () => {
-    const uuid = uuids.characteristics.speed;
+    const uuid = uuids.speed;
     const authenticator = new Authenticator(pin);
 
     characteristic = new SpeedCharacteristic(uuid, authenticator);

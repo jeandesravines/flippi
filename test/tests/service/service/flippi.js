@@ -36,7 +36,7 @@ describe('Flippi', () => {
     });
 
     it('should update the speed', () => {
-      const uuid = uuids.characteristics.speed;
+      const uuid = uuids.speed;
       const value = 0.5;
       const mock = sinon.mock(flippi.engineController);
       const expectations = mock.expects('setValue')

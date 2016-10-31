@@ -19,21 +19,11 @@ const PIN = configuration.pin;
 const DEVICE = configuration.device;
 const NAME = configuration.name;
 
-let flippi;
-
-
 /* ****************************************** */
 /* ****************************************** */
 
 segfaultHandler.registerHandler('');
 debug(configuration);
-
-process.on('exit', () => {
-  if (flippi) {
-    flippi.stop();
-  }
-});
-
 
 /* ****************************************** */
 /* ****************************************** */
@@ -42,5 +32,8 @@ const gpio = DEVICE === devices.gpio;
 const EngineController = gpio ? GpioEngineController : FiveEngineController;
 const controller = new EngineController(CHANNEL_0);
 const manager = new Manager(NAME, new Authenticator(PIN));
+const flippi = new FlipPi(manager, controller);
 
-flippi = new FlipPi(manager, controller);
+process.on('exit', () => {
+    flippi.stop();
+});
