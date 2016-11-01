@@ -15,9 +15,11 @@ const EngineController = require('../../../../lib/controller/five-engine-control
 describe('EngineController', () => {
   const channel = 7;
   let controller;
+  let board;
 
   beforeEach('Create', () => {
-    controller = new EngineController(channel, new ProxyBoard());
+    board = new ProxyBoard();
+    controller = new EngineController(channel, board);
   });
 
   describe('Create', () => {
@@ -39,7 +41,9 @@ describe('EngineController', () => {
             .once()
             .withArgs(channel, args.out);
 
-        return controller.setValue(args.in)
+        return Promise.resolve()
+            .then(() => board.emit('ready'))
+            .then(() => controller.setValue(args.in))
             .then(() => expectations.verify())
             .then(() => mock.restore());
       });
@@ -48,10 +52,9 @@ describe('EngineController', () => {
 
   describe('Events', () => {
     it('should init the pin', () => {
-      const board = new ProxyBoard();
       const spy = sinon.spy(board, 'pinMode');
 
-      return Promise.resolve(new EngineController(channel, board))
+      return Promise.resolve()
           .then(() => board.emit('ready'))
           .then(() => expect(spy.withArgs(channel, Pin.PWM).calledOnce))
           .then(() => spy.restore());
@@ -65,7 +68,9 @@ describe('EngineController', () => {
           .once()
           .withArgs(channel, 0);
 
-      return controller.stop()
+      return Promise.resolve()
+          .then(() => board.emit('ready'))
+          .then(() => controller.stop())
           .then(() => expectations.verify())
           .then(() => mock.restore());
     });
