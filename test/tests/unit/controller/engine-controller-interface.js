@@ -9,7 +9,7 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const EngineController = require('../../../../lib/controller/engine-controller-interface');
 
-describe('EngineController', () => {
+describe('EngineControllerInterface', () => {
   const channel = 7;
   let controller;
 

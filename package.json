@@ -15,8 +15,8 @@
     "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/unit",
     "prestart": "npm run clean",
     "pretest": "npm run clean",
-    "pretest:service": "npm run pretest",
-    "pretest:unit": "npm run pretest"
+    "pretest:service": "npm run clean",
+    "pretest:unit": "npm run clean"
   },
   "main": "index.js",
   "repository": {

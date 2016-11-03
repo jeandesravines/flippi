@@ -27,6 +27,8 @@ describe('Freeze', () => {
         },
       });
 
+      expect(frozen === frozen).to.be.equal(true);
+      expect(frozen === object).to.be.equal(false);
       expect(Object.isFrozen(frozen)).to.be.equal(true);
       expect(Object.isFrozen(frozen.foo)).to.be.equal(true);
     });

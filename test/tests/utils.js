@@ -5,33 +5,61 @@
 'use strict';
 
 const Freezer = require('../../lib/helper/freezer');
-const filename = '../../lib/configuration/configuration';
-const env = Freezer.freeze(process.env);
 
+const environment = Freezer.freeze(process.env);
+const modules = [
+  require.resolve('../../lib/configuration/configuration'),
+];
 
 /**
- *
+ * @class Utils
  */
 class Utils {
   /**
-   * Remove the configuration from the package manager's cache
+   * Remove the registred modules from the package
+   * manager's cache
    */
   static clear() {
-    Utils.deleteProperty(filename);
-    Object.assign(process.env, env);
+    Object.assign(process.env, environment);
     Object.keys(process.env).forEach((key) => {
-      if (typeof env[key] === 'undefined') {
+      if (typeof environment[key] === 'undefined') {
         Reflect.deleteProperty(process.env, key);
       }
     });
-  };
+
+    modules.forEach((key) => {
+      Reflect.deleteProperty(require.cache, key);
+    });
+  }
 
   /**
-   *
-   * @param {String} filename
+   * Register modules
+   * @param {Array.<string>} elements the modules to register
    */
-  static deleteProperty(filename) {
-    Reflect.deleteProperty(require.cache, require.resolve(filename));
+  static register(elements) {
+    elements.forEach((filename) => {
+      const resolved = require.resolve(filename);
+      const index = modules.indexOf(resolved);
+
+      if (index < 0) {
+        modules.push(resolved);
+      }
+    });
+  }
+
+  /**
+   * Unregister modules
+   * @param {Array.<string>} elements the modules to unregister
+   */
+  static unregister(elements) {
+    elements.forEach((filename) => {
+      const resolved = require.resolve(filename);
+      const index = modules.indexOf(resolved);
+
+      if (index >= 0) {
+        modules.splice(index, 1);
+      }
+    });
   }
 }
 

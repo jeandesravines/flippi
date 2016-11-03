@@ -15,7 +15,7 @@ describe('UUID', () => {
     });
 
     it('should be converted', () => {
-      expect(new UUID('637a9500-3d5a-11e6-ac61-9e71128cae77').value)
+      expect(new UUID('637A9500-3D5A-11E6-AC61-9E71128CAE77').value)
           .to.be.equal('637a95003d5a11e6ac619e71128cae77');
     });
   });

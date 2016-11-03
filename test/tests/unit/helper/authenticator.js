@@ -18,6 +18,10 @@ describe('Authenticator', () => {
       expect(new Authenticator().isAllowed('')).to.be.equal(true);
     });
 
+    it('should be allowed with no param', () => {
+      expect(new Authenticator().isAllowed()).to.be.equal(true);
+    });
+
     it('should be unallowed', () => {
       expect(new Authenticator('1234').isAllowed('0000')).to.be.equal(false);
     });

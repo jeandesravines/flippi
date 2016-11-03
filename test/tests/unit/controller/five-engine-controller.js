@@ -12,7 +12,7 @@ const {Pin} = require('johnny-five');
 const ProxyBoard = require('../../../mock/proxy/proxy-board');
 const EngineController = require('../../../../lib/controller/five-engine-controller');
 
-describe('EngineController', () => {
+describe('FiveEngineController', () => {
   const channel = 7;
   let controller;
   let board;

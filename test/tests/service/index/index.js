@@ -6,23 +6,22 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const exec = require('child_process').exec;
+const path = require('path');
 const Utils = require('../../utils');
 const devices = require('../../../../lib/constant/devices');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('index.js', () => {
+  const dirname = path.join(__dirname, '..', '..', '..', '..');
+  const filename = path.join(dirname, 'index');
   let flippi;
 
+  before('Register', () => Utils.register([filename]));
+  after('Unregister', () => Utils.unregister([filename]));
+
+  /* ******************************** */
+
   describe('Require', () => {
-    const filename = __dirname + '/../../../../index';
-
-    beforeEach('Clear', () => {
-      Utils.deleteProperty(filename);
-    });
-
-    /* ************************************** */
-
     it('load index.js with default configuration', () => {
       flippi = require(filename);
     });
