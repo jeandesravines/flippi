@@ -9,6 +9,11 @@ const Mocker = require('../../../lib/helper/mocker');
 const noop = require('../../../lib/helper/noop');
 
 
+/**
+ * ProxyManager
+ * @class ProxyManager
+ * @extends {EventEmitter}
+ */
 module.exports = Mocker.create(EventEmitter, {
-	stop: noop,
+  stop: noop,
 });

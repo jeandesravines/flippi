@@ -8,7 +8,12 @@ const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/helper/mocker');
 
 
+/**
+ * ProxyEngineController
+ * @class ProxyEngineController
+ * @extends {EventEmitter}
+ */
 module.exports = Mocker.create(EventEmitter, {
-	setValue: () => Promise.resolve(),
-	stop: () => Promise.resolve(),
+  setValue: () => Promise.resolve(),
+  stop: () => Promise.resolve(),
 });

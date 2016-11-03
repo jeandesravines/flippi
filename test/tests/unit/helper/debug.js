@@ -9,47 +9,39 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const path = require('path');
+const Utils = require('../../utils');
 
 describe('Debug', () => {
-	describe('Module', () => {
-		const modules = ['debug'];
-		const environment = Object.assign({}, process.env);
-		const dirname = path.join('..', '..', '..', '..', 'lib');
-		const paths = {
-			configuration: path.join(dirname, 'configuration', 'configuration'),
-			debug: path.join(dirname, 'helper', 'debug'),
-		};
+  const dirname = path.join(__dirname, '..', '..', '..', '..', 'lib');
+  const filename = path.join(dirname, 'helper', 'debug');
+  const modules = [filename, 'debug'];
+  let debug;
 
-		/**
-		 * Clear required element from the package manager's cache
-		 */
-		const clear = () => {
-			modules.forEach((module) => {
-				Reflect.deleteProperty(require.cache, require.resolve(module));
-			});
+  before('Register', () => Utils.register(modules));
+  after('Unregister', () => Utils.unregister(modules));
 
-			Object.keys(paths).forEach((key) => {
-				Reflect.deleteProperty(require.cache, require.resolve(paths[key]));
-			});
-		};
+  /* ******************************** */
 
-		beforeEach('Delete require\' cache', () => {
-			clear();
-		});
+  describe('Module', () => {
+    it('should enable debug for flippi namespace', () => {
+      process.env.DEBUG = 'flippi';
+      debug = require(filename);
 
-		afterEach('Reset process.env', () => {
-			clear();
-			Object.assign(process.env, environment);
-		});
+      expect(debug.enabled).to.be.equal(true);
+    });
 
-		it('should call with "debug" mode', () => {
-			process.env.DEBUG = '*';
+    it('should enable debug for all namespaces', () => {
+      process.env.DEBUG = '*';
+      debug = require(filename);
 
-			const debug = require(paths.debug);
-			const configuration = require(paths.configuration);
+      expect(debug.enabled).to.be.equal(true);
+    });
 
-			expect(configuration.debug).to.be.equal(true);
-			expect(debug.enabled).to.be.equal(true);
-		});
-	});
+    it('should disable debug for all namespaces', () => {
+      process.env.DEBUG = '';
+      debug = require(filename);
+
+      expect(debug.enabled).to.be.equal(false);
+    });
+  });
 });

@@ -6,17 +6,31 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const exec = require('child_process').exec;
+const path = require('path');
+const Utils = require('../../utils');
+const devices = require('../../../../lib/constant/devices');
+const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('index.js', () => {
-	it('exec "npm start"', (done) => {
-		const child = exec('npm start');
+  const dirname = path.join(__dirname, '..', '..', '..', '..');
+  const filename = path.join(dirname, 'index');
+  let flippi;
 
-		child.on('exit', (code) => {
-			expect(code).to.be.equal(null);
-			done();
-		});
+  before('Register', () => Utils.register([filename]));
+  after('Unregister', () => Utils.unregister([filename]));
 
-		child.kill();
-	});
+  /* ******************************** */
+
+  describe('Require', () => {
+    it('load index.js with default configuration', () => {
+      flippi = require(filename);
+    });
+
+    it('load index.js with FLIPPI_DEVICE = GPIO', () => {
+      process.env.FLIPPI_DEVICE = devices.gpio;
+      flippi = require(filename);
+
+      expect(flippi.engineController).to.be.an.instanceof(GpioEngineController);
+    });
+  });
 });

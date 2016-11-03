@@ -12,47 +12,47 @@ const Characteristic = require('../../../../lib/bluetooth/characteristic');
 const uuids = require('../../../../lib/constant/uuids');
 
 describe('Characteristic', () => {
-	let characteristic;
+  let characteristic;
 
-	beforeEach('Create', () => {
-		characteristic = new Characteristic({
-			uuid: uuids.characteristics.speed,
-		}, new Authenticator('1234'));
-	});
+  beforeEach('Create', () => {
+    characteristic = new Characteristic({
+      uuid: uuids.speed,
+    }, new Authenticator('1234'));
+  });
 
-	afterEach('Delete', () => {
-		characteristic = null;
-	});
+  afterEach('Delete', () => {
+    characteristic = null;
+  });
 
-	describe('Write', () => {
-		it('should write a Buffer', (done) => {
-			characteristic.emit('writeRequest', null, 0, false, (status) => {
-				expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
-				done();
-			});
-		});
-	});
+  describe('Write', () => {
+    it('should write a Buffer', (done) => {
+      characteristic.emit('writeRequest', null, 0, false, (status) => {
+        expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
+        done();
+      });
+    });
+  });
 
-	describe('Update', () => {
-		it('should emit an "updateValue" event', (done) => {
-			characteristic.on('updateValue', (value, source) => {
-				expect(value).to.be.equal('Hello');
-				expect(source).to.be.equal(characteristic);
-				done();
-			});
+  describe('Update', () => {
+    it('should emit an "updateValue" event', (done) => {
+      characteristic.on('updateValue', (value, source) => {
+        expect(value).to.be.equal('Hello');
+        expect(source).to.be.equal(characteristic);
+        done();
+      });
 
-			characteristic.setValue('Hello');
-		});
-	});
+      characteristic.setValue('Hello');
+    });
+  });
 
-	describe('Read', () => {
-		it('should return a valid Buffer', (done) => {
-			characteristic.setValue('Hello');
-			characteristic.emit('readRequest', 0, (status, value) => {
-				expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
-				expect(value.toString()).to.be.equal('Hello');
-				done();
-			});
-		});
-	});
+  describe('Read', () => {
+    it('should return a valid Buffer', (done) => {
+      characteristic.setValue('Hello');
+      characteristic.emit('readRequest', 0, (status, value) => {
+        expect(status).to.be.equal(Bleno.Characteristic.RESULT_SUCCESS);
+        expect(value.toString()).to.be.equal('Hello');
+        done();
+      });
+    });
+  });
 });

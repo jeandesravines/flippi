@@ -10,20 +10,26 @@ const {EventEmitter} = require('events');
 const Mocker = require('../../../../lib/helper/mocker');
 
 describe('Mocker', () => {
-	describe('Create', () => {
-		it('should be a child of EventEmitter', () => {
-			const Mock = Mocker.create(EventEmitter, {});
+  describe('Instance', () => {
+    it('should throws an Error', () => {
+      expect(() => new Mocker()).to.throws(Error);
+    });
+  });
 
-			expect(new Mock()).to.be.instanceOf(EventEmitter);
-		});
+  describe('Create', () => {
+    it('should be a child of EventEmitter', () => {
+      const Mock = Mocker.create(EventEmitter, {});
 
-		it('should be an overriden child of EventEmitter', () => {
-			const mocked = new (Mocker.create(EventEmitter, {
-				sayHello: () => 'Hello',
-			}))();
+      expect(new Mock()).to.be.instanceOf(EventEmitter);
+    });
 
-			expect(mocked).to.be.instanceOf(EventEmitter);
-			expect(mocked.sayHello()).to.be.equal('Hello');
-		});
-	});
+    it('should be an overriden child of EventEmitter', () => {
+      const mocked = new (Mocker.create(EventEmitter, {
+        sayHello: () => 'Hello',
+      }))();
+
+      expect(mocked).to.be.instanceOf(EventEmitter);
+      expect(mocked.sayHello()).to.be.equal('Hello');
+    });
+  });
 });
