@@ -7,17 +7,13 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const path = require('path');
-const Utils = require('../../utils');
 const devices = require('../../../../lib/constant/devices');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('index.js', () => {
-  const dirname = path.join(__dirname, '..', '..', '..', '..');
+  const dirname = path.join('..', '..', '..', '..');
   const filename = path.join(dirname, 'index');
   let flippi;
-
-  before('Register', () => Utils.register([filename]));
-  after('Unregister', () => Utils.unregister([filename]));
 
   /* ******************************** */
 

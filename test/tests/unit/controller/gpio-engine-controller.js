@@ -9,7 +9,7 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const Catcher = require('@jdes/catcher');
 const Gpio = require('@jdes/gpio');
-const ProxyGpio = require('../../../mock/proxy/proxy-gpio');
+const ProxyGpio = require('../../../lib/proxy/proxy-gpio');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('GpioEngineController', () => {
@@ -21,8 +21,10 @@ describe('GpioEngineController', () => {
   });
 
   describe('Create', () => {
-    it('should eventually create an instance. (Coverage)', () => {
-      Catcher.resolve(() => new GpioEngineController(channel));
+    it('should eventually create an instance.', () => {
+      Catcher.resolve(() => {
+        controller = new GpioEngineController(channel);
+      });
     });
   });
 

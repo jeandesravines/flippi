@@ -9,8 +9,8 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const uuids = require('../../../../lib/constant/uuids');
 const Flippi = require('../../../../lib/service/flippi');
-const ProxyManager = require('../../../mock/proxy/proxy-manager');
-const ProxyEngineController = require('../../../mock/proxy/proxy-engine-controller');
+const ProxyManager = require('../../../lib/proxy/proxy-manager');
+const ProxyEngineController = require('../../../lib/proxy/proxy-engine-controller');
 
 describe('Flippi', () => {
   let flippi;
@@ -18,6 +18,8 @@ describe('Flippi', () => {
   beforeEach('Create', () => {
     flippi = new Flippi(new ProxyManager(), new ProxyEngineController());
   });
+
+  /* ************************************ */
 
   describe('Update', () => {
     it('should handle onUpdateValue event', () => {

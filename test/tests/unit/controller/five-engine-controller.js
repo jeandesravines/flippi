@@ -9,10 +9,10 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const Catcher = require('@jdes/catcher');
 const {Pin} = require('johnny-five');
-const ProxyBoard = require('../../../mock/proxy/proxy-board');
+const ProxyBoard = require('../../../lib/proxy/proxy-board');
 const EngineController = require('../../../../lib/controller/five-engine-controller');
 
-describe('FiveEngineController', () => {
+describe.only('FiveEngineController', () => {
   const channel = 7;
   let controller;
   let board;
@@ -22,9 +22,13 @@ describe('FiveEngineController', () => {
     controller = new EngineController(channel, board);
   });
 
+  /* ************************************* */
+
   describe('Create', () => {
-    it('should eventually create an instance. (Coverage)', () => {
-      Catcher.resolve(() => new EngineController(channel));
+    it('should eventually create an instance.', () => {
+      Catcher.resolve(() => {
+        controller = new EngineController(channel);
+      });
     });
   });
 
