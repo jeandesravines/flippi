@@ -54,9 +54,9 @@ describe('GpioEngineController', () => {
       const gpio = new ProxyGpio();
       const spy = sinon.spy(gpio, 'open');
 
-      return Promise.resolve(new GpioEngineController(channel, gpio))
-          .then(() => expect(spy.withArgs(channel, Gpio.direction.out).calledOnce))
-          .then(() => spy.restore());
+      controller = new GpioEngineController(channel, gpio);
+      expect(spy.withArgs(channel, Gpio.direction.out).calledOnce);
+      spy.restore();
     });
 
     it('should handle the ready event', (done) => {
@@ -70,8 +70,8 @@ describe('GpioEngineController', () => {
     it('should not handle the ready event', () => {
       const gpio = new ProxyGpio();
 
-      return Promise.resolve(new GpioEngineController(-2, gpio))
-          .then(() => gpio.emit('ready'));
+      controller = new GpioEngineController(-2, gpio);
+      gpio.emit('ready');
     });
   });
 

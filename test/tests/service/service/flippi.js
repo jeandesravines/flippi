@@ -28,7 +28,6 @@ describe('Flippi', () => {
       const value = 0.5;
 
       flippi.manager.emit('updateValue', value, uuid);
-
       expect(spy.withArgs(uuid, value).calledOnce);
       spy.restore();
     });
@@ -45,9 +44,9 @@ describe('Flippi', () => {
           .once()
           .withArgs(value);
 
-      return Promise.resolve(flippi.manager.emit('updateValue', value, uuid))
-          .then(() => expectations.verify())
-          .then(() => mock.restore());
+      flippi.manager.emit('updateValue', value, uuid);
+      expectations.verify();
+      mock.restore();
     });
   });
 

@@ -6,8 +6,9 @@
 
 const Freezer = require('../../../lib/helper/freezer');
 
-const keys = Object.keys(require.cache);
-const environment = Freezer.freeze(process.env);
+const defaultKeys = Object.keys(require.cache);
+const defaultEnv = Freezer.freeze(process.env);
+const registered = [];
 
 /**
  * Class used to clean require.cache
@@ -16,26 +17,18 @@ const environment = Freezer.freeze(process.env);
 class Cleaner {
   /**
    * Clean require.cache
-   * @param {string} file the current test file
+   * @static
    */
-  static clean(file) {
-    const modules = require.cache[require.resolve(file)]
-      .children.map((module) => {
-        return module.id;
-      });
-    const currentKeys = keys.concat(modules).concat([file]);
-
-    Object.assign(process.env, environment);
+  static clean() {
+    Object.assign(process.env, defaultEnv);
     Object.keys(process.env).forEach((key) => {
-      if (typeof environment[key] === 'undefined') {
+      if (typeof defaultEnv[key] === 'undefined') {
         Reflect.deleteProperty(process.env, key);
       }
     });
 
-    Object.keys(require.cache).forEach((key) => {
-      if (currentKeys.includes(key) === false) {
-        Cleaner.detach([key].concat(modules));
-      }
+    registered.forEach((key) => {
+      Cleaner.deleteProperty([key].concat(defaultKeys));
     });
   }
 
@@ -44,7 +37,7 @@ class Cleaner {
    * @param {Array.<string>} stack modules to delete
    * @private
    */
-  static detach(stack) {
+  static deleteProperty(stack) {
     const name = stack[0];
     const module = require.cache[name];
 
@@ -52,17 +45,28 @@ class Cleaner {
       return;
     }
 
-    if (stack.slice(1).includes(module.parent.id)) {
-      return;
-    }
-
     module.children.forEach((child) => {
       if (stack.includes(child.id) === false) {
-        Cleaner.detach([child.id].concat(stack));
+        Cleaner.deleteProperty([child.id].concat(stack));
       }
     });
 
     Reflect.deleteProperty(require.cache, name);
+  }
+
+  /**
+   * Register modules
+   * @param {Array.<string>} names the modules to register
+   * @static
+   */
+  static register(names) {
+    names.forEach((name) => {
+      const resolved = require.resolve(name);
+
+      if (registered.includes(resolved) === false) {
+        registered.push(resolved);
+      }
+    });
   }
 }
 

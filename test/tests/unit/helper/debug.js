@@ -4,14 +4,20 @@
 
 'use strict';
 
-const {describe, it} = require('mocha');
+const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
 const path = require('path');
+const Cleaner = require('../../../lib/helper/cleaner');
 
-describe.only('Debug', () => {
-  const dirname = path.join('..', '..', '..', '..', 'lib');
-  const filename = path.join(dirname, 'helper', 'debug');
+describe('Debug', () => {
+  const filename = path.resolve(__dirname, '../../../../lib/helper/debug');
   let debug;
+
+  before('Register module to clean', () => {
+    Cleaner.register([
+      require.resolve(filename),
+    ]);
+  });
 
   /* ******************************** */
 

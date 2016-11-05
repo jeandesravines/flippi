@@ -5,11 +5,16 @@
 
 'use strict';
 
-const {afterEach} = require('mocha');
+const {before, afterEach} = require('mocha');
 const Cleaner = require('../../lib/helper/cleaner');
 
 /* ********************************** */
 
-afterEach('Clean require.cache', function() {
-  Cleaner.clean(this.currentTest.file);
+before('Register modules to clean', () => {
+  Cleaner.register([
+    require.resolve('../../../lib/configuration/configuration'),
+  ]);
 });
+
+beforeEach('Clean require.cache', Cleaner.clean);
+afterEach('Clean require.cache', Cleaner.clean);
