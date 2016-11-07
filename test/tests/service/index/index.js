@@ -4,20 +4,22 @@
 
 'use strict';
 
-const {describe, it} = require('mocha');
+const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
 const path = require('path');
-const Utils = require('../../utils');
+const Cleaner = require('../../../lib/helper/cleaner');
 const devices = require('../../../../lib/constant/devices');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('index.js', () => {
-  const dirname = path.join(__dirname, '..', '..', '..', '..');
-  const filename = path.join(dirname, 'index');
+  const filename = path.resolve(__dirname, '../../../../index');
   let flippi;
 
-  before('Register', () => Utils.register([filename]));
-  after('Unregister', () => Utils.unregister([filename]));
+  before('Register modules to clean', () => {
+    Cleaner.register([
+      require.resolve(filename),
+    ]);
+  });
 
   /* ******************************** */
 

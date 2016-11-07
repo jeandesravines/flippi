@@ -9,8 +9,8 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const uuids = require('../../../../lib/constant/uuids');
 const Flippi = require('../../../../lib/service/flippi');
-const ProxyManager = require('../../../mock/proxy/proxy-manager');
-const ProxyEngineController = require('../../../mock/proxy/proxy-engine-controller');
+const ProxyManager = require('../../../lib/proxy/proxy-manager');
+const ProxyEngineController = require('../../../lib/proxy/proxy-engine-controller');
 
 describe('Flippi', () => {
   let flippi;
@@ -19,6 +19,8 @@ describe('Flippi', () => {
     flippi = new Flippi(new ProxyManager(), new ProxyEngineController());
   });
 
+  /* ************************************ */
+
   describe('Update', () => {
     it('should handle onUpdateValue event', () => {
       const spy = sinon.spy(flippi, 'onUpdateValue');
@@ -26,7 +28,6 @@ describe('Flippi', () => {
       const value = 0.5;
 
       flippi.manager.emit('updateValue', value, uuid);
-
       expect(spy.withArgs(uuid, value).calledOnce);
       spy.restore();
     });
@@ -43,9 +44,9 @@ describe('Flippi', () => {
           .once()
           .withArgs(value);
 
-      return Promise.resolve(flippi.manager.emit('updateValue', value, uuid))
-          .then(() => expectations.verify())
-          .then(() => mock.restore());
+      flippi.manager.emit('updateValue', value, uuid);
+      expectations.verify();
+      mock.restore();
     });
   });
 
