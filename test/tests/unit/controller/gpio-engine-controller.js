@@ -9,7 +9,7 @@ const {expect} = require('chai');
 const sinon = require('sinon');
 const Catcher = require('@jdes/catcher');
 const Gpio = require('@jdes/gpio');
-const ProxyGpio = require('../../../mock/proxy/proxy-gpio');
+const ProxyGpio = require('../../../lib/proxy/proxy-gpio');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('GpioEngineController', () => {
@@ -21,8 +21,10 @@ describe('GpioEngineController', () => {
   });
 
   describe('Create', () => {
-    it('should eventually create an instance. (Coverage)', () => {
-      Catcher.resolve(() => new GpioEngineController(channel));
+    it('should eventually create an instance.', () => {
+      Catcher.resolve(() => {
+        controller = new GpioEngineController(channel);
+      });
     });
   });
 
@@ -52,9 +54,9 @@ describe('GpioEngineController', () => {
       const gpio = new ProxyGpio();
       const spy = sinon.spy(gpio, 'open');
 
-      return Promise.resolve(new GpioEngineController(channel, gpio))
-          .then(() => expect(spy.withArgs(channel, Gpio.direction.out).calledOnce))
-          .then(() => spy.restore());
+      controller = new GpioEngineController(channel, gpio);
+      expect(spy.withArgs(channel, Gpio.direction.out).calledOnce);
+      spy.restore();
     });
 
     it('should handle the ready event', (done) => {
@@ -68,8 +70,8 @@ describe('GpioEngineController', () => {
     it('should not handle the ready event', () => {
       const gpio = new ProxyGpio();
 
-      return Promise.resolve(new GpioEngineController(-2, gpio))
-          .then(() => gpio.emit('ready'));
+      controller = new GpioEngineController(-2, gpio);
+      gpio.emit('ready');
     });
   });
 

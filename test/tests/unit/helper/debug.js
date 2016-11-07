@@ -2,23 +2,22 @@
  * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
  */
 
-/* eslint-disable global-require */
-
 'use strict';
 
-const {describe, it} = require('mocha');
+const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
 const path = require('path');
-const Utils = require('../../utils');
+const Cleaner = require('../../../lib/helper/cleaner');
 
 describe('Debug', () => {
-  const dirname = path.join(__dirname, '..', '..', '..', '..', 'lib');
-  const filename = path.join(dirname, 'helper', 'debug');
-  const modules = [filename, 'debug'];
+  const filename = path.resolve(__dirname, '../../../../lib/helper/debug');
   let debug;
 
-  before('Register', () => Utils.register(modules));
-  after('Unregister', () => Utils.unregister(modules));
+  before('Register module to clean', () => {
+    Cleaner.register([
+      require.resolve(filename),
+    ]);
+  });
 
   /* ******************************** */
 
@@ -27,21 +26,21 @@ describe('Debug', () => {
       process.env.DEBUG = 'flippi';
       debug = require(filename);
 
-      expect(debug.enabled).to.be.equal(true);
+      expect(debug.enabled).to.not.be.equal(undefined);
     });
 
     it('should enable debug for all namespaces', () => {
       process.env.DEBUG = '*';
       debug = require(filename);
 
-      expect(debug.enabled).to.be.equal(true);
+      expect(debug.enabled).to.not.be.equal(undefined);
     });
 
     it('should disable debug for all namespaces', () => {
       process.env.DEBUG = '';
       debug = require(filename);
 
-      expect(debug.enabled).to.be.equal(false);
+      expect(debug.enabled).to.be.equal(undefined);
     });
   });
 });
