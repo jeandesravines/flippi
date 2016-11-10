@@ -4,21 +4,35 @@
 
 'use strict';
 
+const {EventEmitter} = require('events');
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
+const Bleno = require('../../../../lib/bluetooth/bleno');
 const ProxyBleno = require('../../../lib/proxy/proxy-bleno');
 const Manager = require('../../../../lib/bluetooth/manager');
 const Authenticator = require('../../../../lib/helper/authenticator');
 const uuids = require('../../../../lib/constant/uuids');
 
 describe('Manager', () => {
-  let manager;
   const title = 'Test';
   const authenticator = new Authenticator('1234');
+  let manager;
 
   beforeEach('Create', () => {
     manager = new Manager(title, authenticator, new ProxyBleno());
+  });
+
+  /* ************************************* */
+
+  describe('Module check', () => {
+    it('Manager should be an EventEmitter', () => {
+      expect(Manager.prototype).to.be.an.instanceof(EventEmitter);
+    });
+
+    it('Bleno should be an EventEmitter', () => {
+      expect(Bleno.prototype).to.be.an.instanceof(EventEmitter);
+    });
   });
 
   describe('Create', () => {

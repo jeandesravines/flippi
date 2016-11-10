@@ -17,7 +17,7 @@ describe('EngineControllerInterface', () => {
     controller = new EngineController(channel);
   });
 
-  /* ************************************** */
+  /* ************************************* */
 
   describe('Update', () => {
     it('should throws an exception', () => {

@@ -4,13 +4,14 @@
 
 'use strict';
 
+const {EventEmitter} = require('events');
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
 const Catcher = require('@jdes/catcher');
 const ProxyBoard = require('../../../lib/proxy/proxy-board');
-const EngineController = require('../../../../lib/controller/five-engine-controller');
-const {Pin} = require('johnny-five');
+const FiveEngineController = require('../../../../lib/controller/five-engine-controller');
+const {Board, Pin} = require('johnny-five');
 
 describe('FiveEngineController', () => {
   const channel = 7;
@@ -19,15 +20,25 @@ describe('FiveEngineController', () => {
 
   beforeEach('Create', () => {
     board = new ProxyBoard();
-    controller = new EngineController(channel, board);
+    controller = new FiveEngineController(channel, board);
   });
 
   /* ************************************* */
 
+  describe('Module check', () => {
+    it('Board should be an EventEmitter', () => {
+      expect(Board.prototype).to.be.an.instanceof(EventEmitter);
+    });
+
+    it('FiveEngineController should be an EventEmitter', () => {
+      expect(FiveEngineController.prototype).to.be.an.instanceof(EventEmitter);
+    });
+  });
+
   describe('Create', () => {
     it('should eventually create an instance', () => {
       Catcher.resolve(() => {
-        controller = new EngineController(channel);
+        controller = new FiveEngineController(channel);
       });
     });
   });

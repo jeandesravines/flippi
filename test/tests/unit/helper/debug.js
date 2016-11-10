@@ -6,11 +6,10 @@
 
 const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
-const path = require('path');
 const Cleaner = require('../../../lib/helper/cleaner');
 
 describe('Debug', () => {
-  const filename = path.resolve(__dirname, '../../../../lib/helper/debug');
+  const filename = '../../../../lib/helper/debug';
   let debug;
 
   before('Register module to clean', () => {
