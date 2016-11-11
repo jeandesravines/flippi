@@ -7,6 +7,7 @@
 const {EventEmitter} = require('events');
 const Mocker = require('../../../lib/helper/mocker');
 const noop = require('../../../lib/helper/noop');
+const Catcher = require('@jdes/catcher');
 
 
 /**
@@ -15,7 +16,9 @@ const noop = require('../../../lib/helper/noop');
  * @extends {EventEmitter}
  */
 module.exports = Mocker.create(EventEmitter, {
-  setServices: (services, callback) => callback(),
+  setServices: (services, callback) => {
+    services && services[0] ? callback() : callback(new Error());
+  },
   startAdvertising: noop,
   stopAdvertising: noop,
 });

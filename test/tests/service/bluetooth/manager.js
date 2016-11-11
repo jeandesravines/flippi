@@ -43,37 +43,43 @@ describe('Manager', () => {
 
   describe('Events', () => {
     it('should handle advertisingStart event', () => {
-      const mock = sinon.mock(manager._manager);
+      const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('setServices')
           .once()
           .withArgs([manager._service]);
 
-      manager._manager.emit('advertisingStart');
+      manager._bleno.emit('advertisingStart');
       expectations.verify();
       mock.restore();
     });
 
-    it('should handle advertisingStart event with sucess', () => {
-      manager._manager.emit('advertisingStart');
+    it('should handle advertisingStart event with success', () => {
+      manager._bleno.emit('advertisingStart');
+    });
+
+    it('should handle advertisingStart event with error', () => {
+      manager._service = null;
+
+      expect(() => manager._bleno.emit('advertisingStart')).to.throws(Error);
     });
 
     it('should handle stateChange event with poweredOn', () => {
-      const mock = sinon.mock(manager._manager);
+      const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('startAdvertising')
           .once()
           .withExactArgs(manager.title, [uuids.service]);
 
-      manager._manager.emit('stateChange', 'poweredOn');
+      manager._bleno.emit('stateChange', 'poweredOn');
       expectations.verify();
       mock.restore();
     });
 
     it('should handle stateChange event with poweredOff', () => {
-      const mock = sinon.mock(manager._manager);
+      const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('stopAdvertising')
           .once();
 
-      manager._manager.emit('stateChange', 'poweredOff');
+      manager._bleno.emit('stateChange', 'poweredOff');
       expectations.verify();
       mock.restore();
     });
@@ -84,7 +90,7 @@ describe('Manager', () => {
     const bleno = new ProxyBleno();
     const manager = new Manager('Test', authenticator, bleno);
 
-    manager.service.characteristics.forEach((characteristic) => {
+    manager._service.characteristics.forEach((characteristic) => {
       it(`should subscribe to "updateValue" event`, (done) => {
         manager.once('updateValue', (value, uuid) => {
           expect(value).to.be.a('string');
@@ -99,7 +105,7 @@ describe('Manager', () => {
 
   describe('Stop', () => {
     it('should stop', () => {
-      const mock = sinon.mock(manager._manager);
+      const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('stopAdvertising')
           .once();
 

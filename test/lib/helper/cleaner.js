@@ -22,7 +22,7 @@ class Cleaner {
   static clean() {
     Object.assign(process.env, defaultEnv);
     Object.keys(process.env).forEach((key) => {
-      if (typeof defaultEnv[key] === 'undefined') {
+      if (defaultEnv[key] === undefined) {
         Reflect.deleteProperty(process.env, key);
       }
     });
