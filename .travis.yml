@@ -1,4 +1,3 @@
-sudo: required
 language: node_js
 node_js:
     - "6"
@@ -11,6 +10,6 @@ addons:
     packages:
       - g++-5
 test:
-    - npm test
+    - npm run test:unit
 after_success: 
     - npm run coveralls

@@ -34,7 +34,6 @@ It was tested on:
 
 ```shell
 # Node.js v6
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 sudo apt-get install -y nodejs build-essential
 
 # Dependencies
@@ -114,7 +113,7 @@ The used compatible gpio's device.
 Example: 
 
 ```shell
-sudo FLIPPI_DEVICE=five npm start
+sudo FLIPPI_DEVICE=gpio npm start
 ```
 
 #### Roles
@@ -123,19 +122,19 @@ sudo FLIPPI_DEVICE=five npm start
 - `five`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used.
 
 
-### Environment
+### Debug
 
 Indicate if the application use the module `debug`.
 
 - Options: `DEBUG`
 - Type: `String` | `undefined`
-- Values: `flippi:*` | `*` | `undefined`
+- Values: `flippi` | `*` | `undefined`
 - Default: `undefined`
 
 Example: 
 
 ```shell
-sudo DEBUG=flippi:* npm start
+sudo DEBUG=flippi npm start
 ```
 
 ### Name

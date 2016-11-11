@@ -4,6 +4,7 @@
 
 'use strict';
 
+const {EventEmitter} = require('events');
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
@@ -18,6 +19,18 @@ describe('GpioEngineController', () => {
 
   beforeEach('Create', () => {
     controller = new GpioEngineController(channel, new ProxyGpio());
+  });
+
+  /* ************************************* */
+
+  describe('Module check', () => {
+    it('Gpio should be an EventEmitter', () => {
+      expect(Gpio.prototype).to.be.an.instanceof(EventEmitter);
+    });
+
+    it('GpioEngineController should be an EventEmitter', () => {
+      expect(GpioEngineController.prototype).to.be.an.instanceof(EventEmitter);
+    });
   });
 
   describe('Create', () => {

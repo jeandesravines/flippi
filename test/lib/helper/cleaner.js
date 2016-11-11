@@ -22,7 +22,7 @@ class Cleaner {
   static clean() {
     Object.assign(process.env, defaultEnv);
     Object.keys(process.env).forEach((key) => {
-      if (typeof defaultEnv[key] === 'undefined') {
+      if (defaultEnv[key] === undefined) {
         Reflect.deleteProperty(process.env, key);
       }
     });
@@ -46,7 +46,10 @@ class Cleaner {
     }
 
     module.children.forEach((child) => {
-      if (stack.includes(child.id) === false) {
+      const isModule = child.id.includes('/node_modules');
+      const isStacked = stack.includes(child.id);
+
+      if (isModule === false && isStacked === false) {
         Cleaner.deleteProperty([child.id].concat(stack));
       }
     });

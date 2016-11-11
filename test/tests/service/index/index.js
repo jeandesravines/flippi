@@ -6,13 +6,12 @@
 
 const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
-const path = require('path');
 const Cleaner = require('../../../lib/helper/cleaner');
 const devices = require('../../../../lib/constant/devices');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('index.js', () => {
-  const filename = path.resolve(__dirname, '../../../../index');
+  const filename = '../../../../index';
   let flippi;
 
   before('Register modules to clean', () => {
