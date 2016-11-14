@@ -13,7 +13,6 @@
     "test": "npm run test:unit",
     "test:service": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/global test/tests/unit test/tests/service",
     "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/global test/tests/unit",
-    "prestart": "npm run clean",
     "pretest:service": "npm run clean",
     "pretest:unit": "npm run clean"
   },
