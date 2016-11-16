@@ -4,13 +4,14 @@
 
 'use strict';
 
+const {EventEmitter} = require('events');
 const {beforeEach, describe, it} = require('mocha');
 const {expect} = require('chai');
 const sinon = require('sinon');
 const Catcher = require('@jdes/catcher');
-const {Pin} = require('johnny-five');
-const ProxyBoard = require('../../../mock/proxy/proxy-board');
-const EngineController = require('../../../../lib/controller/five-engine-controller');
+const ProxyBoard = require('../../../lib/proxy/proxy-board');
+const FiveEngineController = require('../../../../lib/controller/five-engine-controller');
+const {Board, Pin} = require('johnny-five');
 
 describe('FiveEngineController', () => {
   const channel = 7;
@@ -19,12 +20,26 @@ describe('FiveEngineController', () => {
 
   beforeEach('Create', () => {
     board = new ProxyBoard();
-    controller = new EngineController(channel, board);
+    controller = new FiveEngineController(channel, board);
+  });
+
+  /* ************************************* */
+
+  describe('Module check', () => {
+    it('Board should be an EventEmitter', () => {
+      expect(Board.prototype).to.be.an.instanceof(EventEmitter);
+    });
+
+    it('FiveEngineController should be an EventEmitter', () => {
+      expect(FiveEngineController.prototype).to.be.an.instanceof(EventEmitter);
+    });
   });
 
   describe('Create', () => {
-    it('should eventually create an instance. (Coverage)', () => {
-      Catcher.resolve(() => new EngineController(channel));
+    it('should eventually create an instance', () => {
+      Catcher.resolve(() => {
+        controller = new FiveEngineController(channel);
+      });
     });
   });
 
@@ -36,16 +51,12 @@ describe('FiveEngineController', () => {
 
     values.forEach((args) => {
       it(`should set the value to ${args.in}`, () => {
-        const mock = sinon.mock(controller._board);
-        const expectations = mock.expects('analogWrite')
-            .once()
-            .withArgs(channel, args.out);
+        const spy = sinon.spy(board, 'analogWrite');
 
-        return Promise.resolve()
-            .then(() => board.emit('ready'))
-            .then(() => controller.setValue(args.in))
-            .then(() => expectations.verify())
-            .then(() => mock.restore());
+        board.emit('ready');
+        controller.setValue(args.in);
+        expect(spy.withArgs(channel, args.out).calledOnce);
+        spy.restore();
       });
     });
   });
@@ -54,25 +65,20 @@ describe('FiveEngineController', () => {
     it('should init the pin', () => {
       const spy = sinon.spy(board, 'pinMode');
 
-      return Promise.resolve()
-          .then(() => board.emit('ready'))
-          .then(() => expect(spy.withArgs(channel, Pin.PWM).calledOnce))
-          .then(() => spy.restore());
+      board.emit('ready');
+      expect(spy.withArgs(channel, Pin.PWM).calledOnce);
+      spy.restore();
     });
   });
 
   describe('Stop', () => {
     it('should be stopped', () => {
-      const mock = sinon.mock(controller._board);
-      const expectations = mock.expects('analogWrite')
-          .once()
-          .withArgs(channel, 0);
+      const spy = sinon.spy(board, 'analogWrite');
 
-      return Promise.resolve()
-          .then(() => board.emit('ready'))
-          .then(() => controller.stop())
-          .then(() => expectations.verify())
-          .then(() => mock.restore());
+      board.emit('ready');
+      controller.stop();
+      expect(spy.withArgs(channel, 0).calledOnce);
+      spy.restore();
     });
   });
 });

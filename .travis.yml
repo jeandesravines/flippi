@@ -11,6 +11,6 @@ addons:
     packages:
       - g++-5
 test:
-    - npm test
-after_success: 
+    - npm run test:unit
+after_success:
     - npm run coveralls

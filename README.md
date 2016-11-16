@@ -33,15 +33,27 @@ It was tested on:
 ### Install the dependencies
 
 ```shell
-# Node.js v6
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs build-essential
+# Prerequisites
+sudo systemctl stop bluetooth
 
-# Dependencies
-sudo apt-get install -y git bluetooth bluez libbluetooth-dev libudev-dev
+# Install dependencies
+sudo apt-get update
+sudo apt-get install -y git nodejs build-essential
+sudo apt-get install -y bluetooth libbluetooth-dev libudev-dev libdbus-1-dev libglib2.0-dev
+sudo apt-get install -y libcap2-bin
+
+# Downgrade bluez
+# Download
+wget https://www.kernel.org/pub/linux/bluetooth/bluez-4.101.tar.xz
+tar xfv bluez-4.101.tar.xz
+cd bluez-4.101
+# Install
+sudo ./configure && make && make install
+cd ..
+rm -r bluez-4.101    
 
 # Config
-sudo systemctl disable bluetooth
+sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 sudo 'Flippi' > /etc/hostname
 ```
 
@@ -49,6 +61,7 @@ sudo 'Flippi' > /etc/hostname
 
 This application can then be installed with git and npm:
 ```shell
+# Install app from git
 git clone https://github.com/jeandesravines/flippi.git
 cd flippi
 npm install
@@ -67,16 +80,16 @@ sudo npm start
 
 ### Test
 
-Launch Unit tests as sudo:
+Launch unit tests:
 
 ```shell
-sudo npm test
+npm run test:unit
 ```
 
-Launch services' tests as sudo:
+Launch service tests:
 
 ```shell
-sudo npm run test:service
+npm run test:service
 ```
  
 
@@ -88,9 +101,9 @@ Environment variables can be passed to override the default configuration.
 
 GPIO channels' settings.
 
-#### Motor 1
+#### Motor
 
-The GPIO channel for the first motor.
+The GPIO channel for the motor.
 
 - Options: `FLIPPI_CHANNEL_0`
 - Type: `Number`
@@ -114,7 +127,7 @@ The used compatible gpio's device.
 Example: 
 
 ```shell
-sudo FLIPPI_DEVICE=five npm start
+sudo FLIPPI_DEVICE=gpio npm start
 ```
 
 #### Roles
@@ -123,19 +136,19 @@ sudo FLIPPI_DEVICE=five npm start
 - `five`: An USB connected device connected to the Raspberry. In this case, [Jonny Five](http://johnny-five.io/) will be used.
 
 
-### Environment
+### Debug
 
 Indicate if the application use the module `debug`.
 
 - Options: `DEBUG`
 - Type: `String` | `undefined`
-- Values: `flippi:*` | `*` | `undefined`
+- Values: `flippi` | `*` | `undefined`
 - Default: `undefined`
 
 Example: 
 
 ```shell
-sudo DEBUG=flippi:* npm start
+sudo DEBUG=flippi npm start
 ```
 
 ### Name

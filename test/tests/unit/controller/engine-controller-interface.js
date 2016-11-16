@@ -17,6 +17,8 @@ describe('EngineControllerInterface', () => {
     controller = new EngineController(channel);
   });
 
+  /* ************************************* */
+
   describe('Update', () => {
     it('should throws an exception', () => {
       expect(() => controller.setValue(0)).to.throws(Error);
