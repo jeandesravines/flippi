@@ -11,6 +11,8 @@ const devices = require('../../../../lib/constant/devices');
 describe('Configuration', () => {
   const filename = '../../../../lib/configuration/configuration';
 
+  /* *************************************************** */
+
   describe('content', () => {
     it('should be customized', () => {
       process.env.DEBUG = '*';

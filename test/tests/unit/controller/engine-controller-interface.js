@@ -10,11 +10,11 @@ const sinon = require('sinon');
 const EngineController = require('../../../../lib/controller/engine-controller-interface');
 
 describe('EngineControllerInterface', () => {
-  const channel = 7;
+  const channels = [5, 7];
   let controller;
 
   beforeEach('Create', () => {
-    controller = new EngineController(channel);
+    controller = new EngineController(channels);
   });
 
   /* ************************************* */
@@ -26,12 +26,43 @@ describe('EngineControllerInterface', () => {
   });
 
   describe('Stop', () => {
-    it('should call set value', () => {
+    it('should stop', () => {
       const spy = sinon.spy(controller, 'setValue');
 
-      expect(() => controller.stop()).to.throws(Error);
-      expect(spy.withArgs(0).calledOnce);
-      spy.restore();
+      return Promise.resolve()
+        .then(() => controller.stop())
+        .catch((error) => expect(error.message).to.be.equal('Not set yet'))
+        .then(() => expect(spy.withArgs(0).calledOnce).to.be.equal(true))
+        .then(() => spy.restore());
+    });
+  });
+
+  describe('Close', () => {
+    it('should throws an exception', () => {
+      expect(() => controller.close()).to.throws(Error);
+    });
+  });
+
+  describe('ForEach', () => {
+    it('should resolve correctly', () => {
+      return controller._forEach((channel) => channel)
+        .then((values) => {
+          expect(values).to.be.deep.equal(channels);
+        });
+    });
+
+    it('should resolve with wrong callback', () => {
+      return controller._forEach((channel) => undefined)
+        .then((values) => {
+          expect(values.length).to.be.equal(channels.length);
+        });
+    });
+
+    it('should reject', () => {
+      return controller._forEach((channel) => Promise.reject('OK'))
+        .catch((error) => {
+          expect(error).to.be.equal('OK');
+        });
     });
   });
 });

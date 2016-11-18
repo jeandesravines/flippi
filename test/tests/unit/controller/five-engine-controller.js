@@ -14,13 +14,13 @@ const FiveEngineController = require('../../../../lib/controller/five-engine-con
 const {Board, Pin} = require('johnny-five');
 
 describe('FiveEngineController', () => {
-  const channel = 7;
-  let controller;
+  const channels = [5, 7];
   let board;
+  let controller;
 
   beforeEach('Create', () => {
     board = new ProxyBoard();
-    controller = new FiveEngineController(channel, board);
+    controller = new FiveEngineController(channels, board);
   });
 
   /* ************************************* */
@@ -38,7 +38,7 @@ describe('FiveEngineController', () => {
   describe('Create', () => {
     it('should eventually create an instance', () => {
       Catcher.resolve(() => {
-        controller = new FiveEngineController(channel);
+        controller = new FiveEngineController(channels);
       });
     });
   });
@@ -52,33 +52,61 @@ describe('FiveEngineController', () => {
     values.forEach((args) => {
       it(`should set the value to ${args.in}`, () => {
         const spy = sinon.spy(board, 'analogWrite');
+        const expectations = [
+          spy.withArgs(channels[0], args.out),
+          spy.withArgs(channels[1], args.out),
+        ];
 
-        board.emit('ready');
-        controller.setValue(args.in);
-        expect(spy.withArgs(channel, args.out).calledOnce);
-        spy.restore();
+        return controller.setValue(args.in)
+          .then(() => {
+            expectations.forEach((expectation) => {
+              expect(expectation.calledOnce).to.be.equal(true);
+            });
+          })
+          .then(() => spy.restore());
       });
+    });
+  });
+
+  describe('Stop', () => {
+    it('should stop', () => {
+      const spy = sinon.spy(controller, 'setValue');
+
+      return controller.stop()
+        .then(() => expect(spy.withArgs(0).calledOnce).to.be.equal(true))
+        .then(() => spy.restore());
     });
   });
 
   describe('Events', () => {
     it('should init the pin', () => {
       const spy = sinon.spy(board, 'pinMode');
+      const expectations = [
+        spy.withArgs(channels[0], Pin.PWM),
+        spy.withArgs(channels[1], Pin.PWM),
+      ];
+
+      controller = new FiveEngineController(channels, board);
+      controller.on('ready', () => {
+        expectations.forEach((expectation) => {
+          expect(expectation.calledOnce).to.be.equal(true);
+        });
+
+        spy.restore();
+        done();
+      });
 
       board.emit('ready');
-      expect(spy.withArgs(channel, Pin.PWM).calledOnce);
-      spy.restore();
     });
   });
 
-  describe('Stop', () => {
-    it('should be stopped', () => {
-      const spy = sinon.spy(board, 'analogWrite');
+  describe('Close', () => {
+    it('should close', () => {
+      const spy = sinon.spy(controller, 'stop');
 
-      board.emit('ready');
-      controller.stop();
-      expect(spy.withArgs(channel, 0).calledOnce);
-      spy.restore();
+      controller.close()
+        .then(() => expect(spy.calledOnce).to.be.equal(true))
+        .then(() => spy.restore());
     });
   });
 });

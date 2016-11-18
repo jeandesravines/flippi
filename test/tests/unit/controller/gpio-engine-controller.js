@@ -14,11 +14,13 @@ const ProxyGpio = require('../../../lib/proxy/proxy-gpio');
 const GpioEngineController = require('../../../../lib/controller/gpio-engine-controller');
 
 describe('GpioEngineController', () => {
-  const channel = 7;
+  const channels = [5, 7];
+  let gpio;
   let controller;
 
   beforeEach('Create', () => {
-    controller = new GpioEngineController(channel, new ProxyGpio());
+    gpio = new ProxyGpio();
+    controller = new GpioEngineController(channels, gpio);
   });
 
   /* ************************************* */
@@ -36,7 +38,7 @@ describe('GpioEngineController', () => {
   describe('Create', () => {
     it('should eventually create an instance.', () => {
       Catcher.resolve(() => {
-        controller = new GpioEngineController(channel);
+        controller = new GpioEngineController(channels);
       });
     });
   });
@@ -49,55 +51,83 @@ describe('GpioEngineController', () => {
 
     values.forEach((args) => {
       it(`should set the value to ${args.in}`, () => {
-        const mock = sinon.mock(controller._gpio);
-        const expectations = mock.expects('setAnalogValue')
-            .once()
-            .returns(Promise.resolve())
-            .withArgs(channel, args.out);
+        const spy = sinon.spy(controller._gpio, 'setAnalogValue');
+        const expectations = [
+          spy.withArgs(channels[0], args.out),
+          spy.withArgs(channels[1], args.out),
+        ];
 
         return controller.setValue(args.in)
-            .then(() => expectations.verify())
-            .then(() => mock.restore());
+          .then(() => {
+            expectations.forEach((expectation) => {
+              expect(expectation.calledOnce).to.be.equal(true);
+            });
+          })
+          .then(() => spy.restore());
       });
     });
   });
 
-  describe('Events', () => {
-    it('should init the pin', () => {
-      const gpio = new ProxyGpio();
-      const spy = sinon.spy(gpio, 'open');
+  describe('Stop', () => {
+    it('should stop', () => {
+      const spy = sinon.spy(controller, 'setValue');
 
-      controller = new GpioEngineController(channel, gpio);
-      expect(spy.withArgs(channel, Gpio.direction.out).calledOnce);
-      spy.restore();
+      return controller.stop()
+        .then(() => expect(spy.withArgs(0).calledOnce).to.be.equal(true))
+        .then(() => spy.restore());
+    });
+  });
+
+  describe('Events', () => {
+    it('should handle the ready event', (done) => {
+      controller.on('ready', () => done());
+      gpio.emit('ready');
     });
 
-    it('should handle the ready event', (done) => {
-      const gpio = new ProxyGpio();
-      const controller = new GpioEngineController(channel, gpio);
+    it('should init the pin', (done) => {
+      const spy = sinon.spy(gpio, 'open');
+      const expectations = [
+        spy.withArgs(channels[0], Gpio.direction.out),
+        spy.withArgs(channels[1], Gpio.direction.out),
+      ];
 
-      controller.on('ready', () => done());
+      controller.on('ready', () => {
+        expectations.forEach((expectation) => {
+          expect(expectation.calledOnce).to.be.equal(true);
+        });
+        spy.restore();
+        done();
+      });
+
       gpio.emit('ready');
     });
 
     it('should not handle the ready event', () => {
       const gpio = new ProxyGpio();
 
-      controller = new GpioEngineController(-2, gpio);
+      controller = new GpioEngineController([-2], gpio);
+      controller.on('ready', () => {
+        throw new Error();
+      });
       gpio.emit('ready');
     });
   });
 
-  describe('Stop', () => {
-    it('should stop', () => {
-      const mock = sinon.mock(controller._gpio);
-      const expectations = mock.expects('close')
-          .once()
-          .withArgs(channel);
+  describe('Close', () => {
+    it('should close', () => {
+      const spy = sinon.spy(controller._gpio, 'close');
+      const expectations = [
+        spy.withArgs(channels[0]),
+        spy.withArgs(channels[1]),
+      ];
 
-      return controller.stop()
-          .then(() => expectations.verify())
-          .then(() => mock.restore());
+      return controller.close()
+        .then(() => {
+          expectations.forEach((expectation) => {
+            expect(expectation.calledOnce).to.be.equal(true);
+          });
+        })
+        .then(() => spy.restore());
     });
   });
 });
