@@ -45,8 +45,8 @@ describe('Manager', () => {
     it('should handle advertisingStart event', () => {
       const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('setServices')
-          .once()
-          .withArgs([manager._service]);
+        .once()
+        .withArgs([manager._service]);
 
       manager._bleno.emit('advertisingStart');
       expectations.verify();
@@ -66,8 +66,8 @@ describe('Manager', () => {
     it('should handle stateChange event with poweredOn', () => {
       const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('startAdvertising')
-          .once()
-          .withExactArgs(manager.title, [uuids.service]);
+        .once()
+        .withExactArgs(manager.title, [uuids.service]);
 
       manager._bleno.emit('stateChange', 'poweredOn');
       expectations.verify();
@@ -77,7 +77,7 @@ describe('Manager', () => {
     it('should handle stateChange event with poweredOff', () => {
       const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('stopAdvertising')
-          .once();
+        .once();
 
       manager._bleno.emit('stateChange', 'poweredOff');
       expectations.verify();
@@ -107,11 +107,11 @@ describe('Manager', () => {
     it('should stop', () => {
       const mock = sinon.mock(manager._bleno);
       const expectations = mock.expects('stopAdvertising')
-          .once();
+        .once();
 
       return Promise.resolve(manager.stop())
-          .then(() => expectations.verify())
-          .then(() => mock.restore());
+        .then(() => expectations.verify())
+        .then(() => mock.restore());
     });
   });
 });
