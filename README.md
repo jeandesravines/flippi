@@ -40,7 +40,6 @@ sudo systemctl stop bluetooth
 sudo apt-get update
 sudo apt-get install -y git nodejs build-essential
 sudo apt-get install -y bluetooth libbluetooth-dev libudev-dev libdbus-1-dev libglib2.0-dev
-sudo apt-get install -y libcap2-bin
 
 # Downgrade bluez
 # Download
@@ -48,7 +47,9 @@ wget https://www.kernel.org/pub/linux/bluetooth/bluez-4.101.tar.xz
 tar xfv bluez-4.101.tar.xz
 cd bluez-4.101
 # Install
-sudo ./configure && make && make install
+sudo ./configure
+sudo make
+sudo make install
 cd ..
 rm -r bluez-4.101
 ```
@@ -79,7 +80,7 @@ sudo npm start
 Launch unit tests:
 
 ```shell
-npm run test:unit
+npm run test
 ```
 
 Launch service tests:
@@ -99,7 +100,7 @@ GPIO channels' settings.
 
 #### Motor
 
-The GPIO channel for the motor.
+The GPIO channel for the first motor.
 
 - Options: `FLIPPI_CHANNEL_0`
 - Type: `Number`
