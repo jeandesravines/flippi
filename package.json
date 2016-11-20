@@ -8,13 +8,10 @@
     "clean": "rm -rf coverage *.log 2> /dev/null",
     "commit": "commit-wizard",
     "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-    "lint": "node_modules/.bin/eslint lib test",
+    "lint": "node_modules/.bin/eslint --fix lib test",
     "start": "node index.js",
-    "test": "npm run test:unit",
-    "test:service": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/global test/tests/unit test/tests/service",
-    "test:unit": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive test/tests/global test/tests/unit",
-    "pretest:service": "npm run clean",
-    "pretest:unit": "npm run clean"
+    "test": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive",
+    "pretest": "npm run clean"
   },
   "main": "index.js",
   "repository": {
@@ -63,7 +60,7 @@
       "commit-msg": "simple",
       "post-commit": "git status",
       "pre-commit": "npm run --silent lint",
-      "pre-push": "sudo npm --silent run test"
+      "pre-push": "npm run --silent test"
     }
   }
 }

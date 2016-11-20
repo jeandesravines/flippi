@@ -1,6 +1,6 @@
 # Flippi
 
-Skateboard Bluetooth Low Energy (BLE) controller
+Skateboard Bluetooth Low Energy (BLE) controller using [bleno](https://github.com/sandeepmistry/bleno)
 
 
 ## Table of contents
@@ -23,12 +23,12 @@ It was tested on:
 
 ### Dependencies
 
-- nodejs (>= 6.0.0)
-- git
+- nodejs >= 6.x
 - bluetooth
-- bluez
+- bluez <= 4.x
 - libbluetooth-dev
 - libudev-dev
+- git
 
 ### Install the dependencies
 
@@ -40,7 +40,6 @@ sudo systemctl stop bluetooth
 sudo apt-get update
 sudo apt-get install -y git nodejs build-essential
 sudo apt-get install -y bluetooth libbluetooth-dev libudev-dev libdbus-1-dev libglib2.0-dev
-sudo apt-get install -y libcap2-bin
 
 # Downgrade bluez
 # Download
@@ -48,13 +47,11 @@ wget https://www.kernel.org/pub/linux/bluetooth/bluez-4.101.tar.xz
 tar xfv bluez-4.101.tar.xz
 cd bluez-4.101
 # Install
-sudo ./configure && make && make install
+sudo ./configure
+sudo make
+sudo make install
 cd ..
-rm -r bluez-4.101    
-
-# Config
-sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
-sudo 'Flippi' > /etc/hostname
+rm -r bluez-4.101
 ```
 
 ### Install the application
@@ -83,13 +80,7 @@ sudo npm start
 Launch unit tests:
 
 ```shell
-npm run test:unit
-```
-
-Launch service tests:
-
-```shell
-npm run test:service
+npm run test
 ```
  
 
@@ -103,7 +94,7 @@ GPIO channels' settings.
 
 #### Motor
 
-The GPIO channel for the motor.
+The GPIO channel for the first motor.
 
 - Options: `FLIPPI_CHANNEL_0`
 - Type: `Number`
@@ -153,7 +144,8 @@ sudo DEBUG=flippi npm start
 
 ### Name
 
-The name of the application.
+The name of the application.  
+This option will automatically set the `BLENO_DEVICE_NAME` with the same value.
 
 - Options: `FLIPPI_NAME`
 - Type: `String`
@@ -177,4 +169,20 @@ Example:
 
 ```shell
 sudo FLIPPI_PIN=2468 npm start
+```
+
+### Bluetooth Advertising interval (bleno)
+
+A custom advertising interval in ms.  
+Advertising intervals must be between 20ms to 10000ms.
+
+
+- Options: `BLENO_ADVERTISING_INTERVAL`
+- Type: `Number`
+- Default: `500`
+
+Example: 
+
+```shell
+sudo BLENO_ADVERTISING_INTERVAL=200 npm start
 ```

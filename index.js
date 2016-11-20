@@ -14,7 +14,7 @@ const Flippi = require('./lib/service/flippi');
 const FiveEngineController = require('./lib/controller/five-engine-controller');
 const GpioEngineController = require('./lib/controller/gpio-engine-controller');
 
-const CHANNEL_0 = configuration.channels[0];
+const CHANNELS = configuration.channels;
 const PIN = configuration.pin;
 const DEVICE = configuration.device;
 const NAME = configuration.name;
@@ -28,7 +28,7 @@ debug(configuration);
 
 const gpio = DEVICE === devices.gpio;
 const EngineController = gpio ? GpioEngineController : FiveEngineController;
-const controller = new EngineController(CHANNEL_0);
+const controller = new EngineController(CHANNELS);
 const manager = new Manager(NAME, new Authenticator(PIN));
 const flippi = new Flippi(manager, controller);
 
