@@ -11,8 +11,8 @@ const Cleaner = require('../../lib/helper/cleaner');
 
 describe('Cleaner', () => {
   const modules = [
+    require.resolve('../../lib/helper/freezer'),
     require.resolve('../../lib/helper/uuid'),
-    require.resolve('../../lib/helper/noop'),
   ];
 
   let registered;
@@ -41,14 +41,12 @@ describe('Cleaner', () => {
     });
 
     it('should only register new modules', () => {
-      const filename = require.resolve('../../lib/helper/freezer');
-      const aggregate = modules.concat([filename]);
+      const filename = require.resolve('../../lib/configuration/configuration');
+      const aggregated = registered.concat(modules);
 
-      Cleaner.register(aggregate);
+      Cleaner.register([filename]);
 
-      expect(Cleaner.registered).to.be.deep.equal(registered.concat(modules, [
-        filename,
-      ]));
+      expect(Cleaner.registered).to.be.deep.equal(aggregated);
     });
   });
 
