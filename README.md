@@ -82,12 +82,6 @@ Launch unit tests:
 ```shell
 npm run test
 ```
-
-Launch service tests:
-
-```shell
-npm run test:service
-```
  
 
 ## Environment variables
