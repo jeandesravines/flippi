@@ -59,8 +59,8 @@
     "pre-git": {
       "commit-msg": "simple",
       "post-commit": "git status",
-      "pre-commit": "npm run --silent lint -- --fix",
-      "pre-push": "sudo npm --silent run test"
+      "pre-commit": "npm run --silent lint",
+      "pre-push": "npm run --silent test"
     }
   }
 }
