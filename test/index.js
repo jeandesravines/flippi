@@ -4,7 +4,7 @@
 
 'use strict';
 
-const {before, beforeEach, afterEach} = require('mocha');
+const {before, afterEach, beforeEach} = require('mocha');
 const Cleaner = require('../lib/helper/cleaner');
 
 /* ********************************** */

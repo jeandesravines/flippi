@@ -33,6 +33,10 @@ It was tested on:
 ### Install the dependencies
 
 ```shell
+# Update dependencies
+sudo apt-get update
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+
 # Install dependencies
 sudo apt-get update
 sudo apt-get install -y git nodejs build-essential
@@ -41,7 +45,7 @@ sudo apt-get install -y bluetooth libbluetooth-dev libudev-dev libdbus-1-dev lib
 # Prerequisites
 sudo systemctl stop bluetooth
 
-# Downgrade bluez
+# Downgrade bluez to version < 5
 curl https://www.kernel.org/pub/linux/bluetooth/bluez-4.101.tar.xz | tar -xJ
 (cd bluez-4.101; ./configure && make && sudo make install)
 rm -r bluez-4.101
