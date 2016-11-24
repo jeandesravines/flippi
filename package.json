@@ -2,10 +2,10 @@
   "name": "@jdes/flippi",
   "private": true,
   "version": "1.0.0",
-  "description": "Skateboard Bluetooth Low Energy (BLE) controller.",
+  "description": "Skateboard Bluetooth controller.",
   "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
   "scripts": {
-    "clean": "rm -rf coverage *.log 2> /dev/null",
+    "clean": "rm -rf coverage npm-debug.log* *.log 2> /dev/null",
     "commit": "commit-wizard",
     "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "lint": "node_modules/.bin/eslint --fix lib test",
@@ -46,9 +46,6 @@
     "mocha": "^3.0.1",
     "pre-git": "^3.10.0",
     "sinon": "^1.17.5"
-  },
-  "optionalDependencies": {
-    "segfault-handler": "^1.0.0"
   },
   "homepage": "https://github.com/jeandesravines/flippi",
   "license": "MIT",
