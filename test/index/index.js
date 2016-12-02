@@ -6,22 +6,16 @@
 
 const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Cleaner = require('../../lib/helper/cleaner');
-const devices = require('../../lib/constant/devices');
+const EnvCleaner = require('@jdes/env-cleaner');
 const GpioEngineController = require('../../lib/controller/gpio-engine-controller');
+const devices = require('../../lib/constant/devices');
 
 describe.skip('index.js', () => {
   const filename = '../../index';
   let flippi;
 
   before('Register modules to clean', () => {
-    Cleaner.register([
-      require.resolve(filename),
-    ]);
-  });
-
-  beforeEach('Register modules to clean', () => {
-    process.env.FLIPPI_TEST = 'true';
+    EnvCleaner.register(require.resolve(filename));
   });
 
   /* ******************************** */
