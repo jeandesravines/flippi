@@ -30,8 +30,8 @@
   ],
   "dependencies": {
     "@jdes/catcher": "^2.0.0",
-		"@jdes/env-cleaner": "^1.0.0",
-    "@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git#develop",
+    "@jdes/env-cleaner": "^1.0.0",
+    "@jdes/gpio": "https://github.com/jeandesravines/gpio.git#develop",
     "@jdes/mutex": "^1.0.0",
     "@jdes/promisify": "^1.0.0",
     "bleno": "^0.4.0",
