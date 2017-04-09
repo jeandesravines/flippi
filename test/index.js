@@ -1,19 +1,17 @@
 /**
- * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ * Copyright 2017 Jean Desravines <hi@jeandesravines.com>
  */
 
 'use strict';
 
 const {before, beforeEach, afterEach} = require('mocha');
-const Cleaner = require('../lib/helper/cleaner');
+const EnvCleaner = require('@jdes/env-cleaner');
 
 /* ********************************** */
 
 before('Register modules to clean', () => {
-  Cleaner.register([
-    require.resolve('../lib/configuration/configuration'),
-  ]);
+  EnvCleaner.register(require.resolve('../lib/configuration/configuration'));
 });
 
-beforeEach('Clean require.cache', Cleaner.clean);
-afterEach('Clean require.cache', Cleaner.clean);
+beforeEach('Clean require.cache', EnvCleaner.clean);
+afterEach('Clean require.cache', EnvCleaner.clean);

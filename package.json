@@ -2,16 +2,16 @@
   "name": "@jdes/flippi",
   "private": true,
   "version": "1.0.0",
-  "description": "Skateboard Bluetooth Low Energy (BLE) controller.",
+  "description": "Skateboard Bluetooth controller.",
   "author": "Jean Desravines <hi@jeandesravines.com> (http://www.jeandesravines.com)",
   "scripts": {
-    "clean": "rm -rf coverage *.log 2> /dev/null",
+    "clean": "rm -rf coverage npm-debug.log* *.log 2> /dev/null",
     "commit": "commit-wizard",
     "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "lint": "node_modules/.bin/eslint --fix lib test",
     "start": "node index.js",
-    "test": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive",
-    "pretest": "npm run clean"
+    "pretest": "npm run clean",
+    "test": "node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha -- --recursive"
   },
   "main": "index.js",
   "repository": {
@@ -22,15 +22,16 @@
     "url": "https://github.com/jeandesravines/flippi/issues"
   },
   "keywords": [
-    "es6",
-    "raspberry",
-    "pi",
     "bluetooth",
-    "motor"
+    "es6",
+    "motor",
+    "raspberry pi",
+    "skate"
   ],
   "dependencies": {
     "@jdes/catcher": "^2.0.0",
-    "@jdes/gpio": "git+ssh://git@github.com/jeandesravines/gpio.git",
+    "@jdes/env-cleaner": "^1.0.0",
+    "@jdes/gpio": "https://github.com/jeandesravines/gpio.git#develop",
     "@jdes/mutex": "^1.0.0",
     "@jdes/promisify": "^1.0.0",
     "bleno": "^0.4.0",
@@ -46,9 +47,6 @@
     "mocha": "^3.0.1",
     "pre-git": "^3.10.0",
     "sinon": "^1.17.5"
-  },
-  "optionalDependencies": {
-    "segfault-handler": "^1.0.0"
   },
   "homepage": "https://github.com/jeandesravines/flippi",
   "license": "MIT",

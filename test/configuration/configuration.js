@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ * Copyright 2017 Jean Desravines <hi@jeandesravines.com>
  */
 
 'use strict';
@@ -14,9 +14,26 @@ describe('Configuration', () => {
   /* *************************************************** */
 
   describe('content', () => {
+    it('should load the default configuration', () => {
+      expect(require(filename)).to.be.deep.equal({
+        advertisingInterval: 500,
+        channels: [
+          5,
+        ],
+        debug: false,
+        device: 'five',
+        name: 'Flippi',
+        pin: '1234',
+        uuids: {
+          service: '637a95003d5a11e6ac619e71128cae77',
+          speed: '637a95013d5a11e6ac619e71128cae77',
+        },
+      });
+    });
+
     it('should be customized', () => {
       process.env.DEBUG = '*';
-      process.env.FLIPPI_ADVERTISING_INTERVAL = 200;
+      process.env.FLIPPI_ADVERTISING_INTERVAL = '200';
       process.env.FLIPPI_CHANNEL_0 = '10';
       process.env.FLIPPI_DEVICE = devices.gpio;
       process.env.FLIPPI_NAME = 'Hello';
@@ -29,14 +46,14 @@ describe('Configuration', () => {
         channels: [
           10,
         ],
+        debug: true,
+        device: 'gpio',
+        name: 'Hello',
+        pin: 'TEST_PIN',
         uuids: {
           service: '110e8400e29b11d4a716446655440000',
           speed: '110e8400e29b11d4a716446655440001',
         },
-        debug: true,
-        device: devices.gpio,
-        name: 'Hello',
-        pin: 'TEST_PIN',
       });
     });
 

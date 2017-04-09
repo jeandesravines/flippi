@@ -1,21 +1,19 @@
 /**
- * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ * Copyright 2017 Jean Desravines <hi@jeandesravines.com>
  */
 
 'use strict';
 
 const {before, describe, it} = require('mocha');
 const {expect} = require('chai');
-const Cleaner = require('../../lib/helper/cleaner');
+const EnvCleaner = require('@jdes/env-cleaner');
 
 describe('Debug', () => {
   const filename = '../../lib/helper/debug';
   let debug;
 
   before('Register module to clean', () => {
-    Cleaner.register([
-      require.resolve(filename),
-    ]);
+    EnvCleaner.register(require.resolve(filename));
   });
 
   /* ******************************** */

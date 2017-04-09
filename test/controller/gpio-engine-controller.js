@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ * Copyright 2017 Jean Desravines <hi@jeandesravines.com>
  */
 
 'use strict';
@@ -92,10 +92,16 @@ describe('GpioEngineController', () => {
       ];
 
       controller.on('ready', () => {
-        expectations.forEach((expectation) => {
-          expect(expectation.calledOnce).to.be.equal(true);
-        });
-        spy.restore();
+        try {
+          expectations.forEach((expectation) => {
+            expect(expectation.calledOnce).to.be.equal(true);
+          });
+        } catch (error) {
+          return done(error);
+        } finally {
+          spy.restore();
+        }
+
         done();
       });
 
