@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 Jean Desravines <hi@jeandesravines.com>
+ * Copyright 2017 Jean Desravines <hi@jeandesravines.com>
  */
 
 'use strict';
@@ -79,20 +79,29 @@ describe('FiveEngineController', () => {
   });
 
   describe('Events', () => {
-    it('should init the pin', () => {
+    it('should handle the ready event', (done) => {
+      controller.on('ready', () => done());
+      board.emit('ready');
+    });
+
+    it('should init the pin', (done) => {
       const spy = sinon.spy(board, 'pinMode');
       const expectations = [
         spy.withArgs(channels[0], Pin.PWM),
         spy.withArgs(channels[1], Pin.PWM),
       ];
 
-      controller = new FiveEngineController(channels, board);
       controller.on('ready', () => {
-        expectations.forEach((expectation) => {
-          expect(expectation.calledOnce).to.be.equal(true);
-        });
+        try {
+          expectations.forEach((expectation) => {
+            expect(expectation.calledOnce).to.be.equal(true);
+          });
+        } catch (error) {
+          return done(error);
+        } finally {
+          spy.restore();
+        }
 
-        spy.restore();
         done();
       });
 
