@@ -7,7 +7,6 @@
   "scripts": {
     "clean": "rm -rf coverage npm-debug.log* *.log 2> /dev/null",
     "commit": "commit-wizard",
-    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
     "lint": "node_modules/.bin/eslint --fix lib test",
     "start": "node index.js",
     "pretest": "npm run clean",
@@ -40,7 +39,6 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "coveralls": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
     "istanbul": "^0.4.2",
