@@ -1,16 +1,26 @@
 sudo: required
 language: node_js
+cache: yarn
 node_js:
-    - "6"
+  - "6"
+  - node
+
 env:
   - CXX=g++-5
+
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-5
-test:
-    - npm run test:unit
+
+before_script:
+  - yarn global add codecov
+
+script:
+  - yarn lint
+  - yarn test
+
 after_success:
-    - npm run coveralls
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
